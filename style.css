@@ -351,3 +351,15 @@ body.ricola-active p,
 body.ricola-active strong {
     color: #2c3e50 !important; 
 }
+
+.video-wrapper {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.video-wrapper iframe {
+    width: 100%;
+    height: 350px; /* Hier kannst du die Höhe steuern, wie du willst */
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
