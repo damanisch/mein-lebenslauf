@@ -1,0 +1,243 @@
+/* Generelle Einstellungen für die ganze Seite */
+body {
+	font-family: 'Inter', Arial, sans-serif;
+	color: #333333;
+	background-color: #f5f5f5;
+	margin: 0;
+	padding: 40px 0;
+}
+
+/* Der weisse "Papierblock" deines Lebenslaufs */
+.cv-container {
+	max-width: 900px;
+	margin: 0 auto;
+	background-color: #ffffff;
+	box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+	padding: 50px;
+	display: flex;
+	gap: 60px;
+	flex-wrap: wrap;
+}
+
+/* LINKER BEREICH (Schmaler) */
+.left-column {
+	flex: 0 0 280px;
+}
+
+/* Rechter BEREICH (Breiter) */
+.right-column {
+	flex: 1;
+}
+
+/* Profilbild */
+.profile-pic-container {
+	text-align: center;
+	margin-bottom: 25px;
+}
+
+.profile-pic {
+	width: 180px;
+	height: 180px;
+	border-radius: 50%;
+	object-fit: cover;
+	object-position: 40% 0%; /* Deine angepasste Position */
+	background-color: #0077ff;
+}
+
+/* Name und Untertitel */
+.name {
+	font-family: 'Playfair Display', Georgia, serif;
+	font-size: 38px;
+	text-align: center;
+	margin: 0 0 5px 0;
+	color: #2c3e50;
+	line-height: 1.1;
+}
+
+.subtitle {
+	font-size: 18px;
+	text-align: center;
+	color: #7f8c8d;
+	margin: 0 0 40px 0;
+	font-weight: 500;
+}
+
+/* Überschriften in der Seitenleiste */
+.sidebar-section h2 {
+	font-size: 20px;
+	color: #2c3e50;
+	border-bottom: 1px solid #eee;
+	padding-bottom: 5px;
+	margin-top: 30px;
+}
+
+.sidebar-section p, .sidebar-section li {
+	font-size: 14px;
+	line-height: 1.5;
+	color: #555;
+}
+
+.sidebar-section ul {
+	padding-left: 20px;
+}
+
+/* RECHTE SPALTE: Hauptsektionen */
+.main-section h2 {
+	font-size: 22px; /* Leicht verkleinert für kompakten Look */
+	color: #2c3e50;
+	margin-top: 0;
+	margin-bottom: 15px; /* Weniger Abstand nach unten */
+	padding-bottom: 5px;
+	border-bottom: 2px solid #f0f0f0; /* Gibt den Listen einen schönen Rahmen */
+	text-transform: none;
+}
+
+.main-section {
+	margin-bottom: 35px; /* Reduzierter Abstand zwischen den grossen Blöcken */
+}
+
+/* Einzelne Einträge als kompakte Liste */
+.entry {
+	margin-bottom: 10px; /* Deutlich kompakter (vorher 20px) */
+}
+
+.entry-header {
+	display: flex;
+	justify-content: space-between; 
+	font-size: 15px;
+	color: #333;
+}
+
+.date {
+	color: #7f8c8d;
+	font-size: 14px;
+}
+
+/* Untertitel eines Eintrags (jetzt im versteckten Bereich) */
+.institution {
+	font-style: italic;
+	font-size: 13.5px;
+	color: #444; /* Etwas dunkler, da es jetzt der Titel des Inhalts ist */
+	margin: 0 0 8px 0;
+	font-weight: 500;
+}
+
+/* Die Beschreibungstexte */
+.details {
+	font-size: 13.5px;
+	line-height: 1.5;
+	color: #555;
+	margin: 0;
+}
+
+/* --- Akkordeon / Ausklapp-Effekt --- */
+
+details summary::-webkit-details-marker {
+	display: none;
+}
+details summary {
+	list-style: none;
+	cursor: pointer;
+	outline: none;
+	position: relative;
+	padding-right: 20px;
+	padding-bottom: 5px; /* Ein Hauch Luft nach unten im geschlossenen Zustand */
+}
+
+/* Der feine Pfeil */
+details summary::after {
+	content: "▼";
+	position: absolute;
+	right: 0;
+	top: 2px; /* Pfeil etwas höher, passend zur einzeiligen Ansicht */
+	font-size: 10px;
+	color: #aaa; /* Etwas dezenteres Grau */
+	transition: transform 0.3s ease;
+}
+
+details[open] summary::after {
+	transform: rotate(180deg);
+}
+
+details summary:hover .entry-header strong {
+	color: #000; 
+}
+
+/* Abstand und Styling für den aufgeklappten Text */
+.details-content {
+	padding-top: 10px;
+	padding-bottom: 15px; /* Mehr Platz unten, wenn aufgeklappt */
+	margin-top: 0;
+}
+
+.video-placeholder {
+	width: 100%;
+	aspect-ratio: 16 / 9;
+	background: linear-gradient(135deg, #3a4a5a, #2c3e50);
+	border-radius: 8px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	color: rgba(255, 255, 255, 0.8);
+	box-shadow: inset 0 0 30px rgba(0,0,0,0.2);
+	margin-top: 10px;
+}
+
+.play-icon {
+	font-size: 50px;
+	margin-bottom: 15px;
+	opacity: 0.6;
+}
+
+.video-placeholder p {
+	font-size: 16px;
+	font-weight: 500;
+	margin: 0;
+	letter-spacing: 0.5px;
+}
+
+.dossier-section {
+	flex: 0 0 100%; /* Zwingt diesen Abschnitt, die volle Breite (100%) zu nehmen */
+	margin-top: 20px;
+	padding-top: 40px;
+	border-top: 2px solid #f0f0f0; /* Eine schöne Trennlinie zum Lebenslauf */
+}
+
+.dossier-section h2 {
+	font-size: 28px;
+	color: #2c3e50;
+	text-align: center; /* Titel zentriert in der Mitte */
+	margin-top: 0;
+	margin-bottom: 40px;
+}
+
+/* Das CSS-Grid für die Video-Galerie */
+.video-grid {
+	display: grid;
+	/* Die Magie: Macht die Videos mindestens 280px breit und füllt den Platz intelligent aus */
+	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+	gap: 25px;
+}
+
+/* Anpassungen für die kleineren Vorschaubilder im Dossier */
+.video-placeholder.thumbnail {
+	margin-top: 0; /* Überschreibt den margin vom grossen Video */
+	cursor: pointer; /* Zeigt eine Hand beim Drüberfahren (klickbar) */
+	transition: transform 0.2s ease, box-shadow 0.2s ease; /* Weiche Animation */
+}
+
+/* Ein cooler Hover-Effekt: Die Videos heben sich leicht an, wenn man mit der Maus drüberfährt */
+.video-placeholder.thumbnail:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+.video-placeholder.thumbnail .play-icon {
+	font-size: 40px; /* Etwas kleineres Icon für die Thumbnails */
+	margin-bottom: 10px;
+}
+
+.video-placeholder.thumbnail p {
+	font-size: 14px;
+}
