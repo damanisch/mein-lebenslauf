@@ -16,3 +16,14 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 });
+
+
+
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    console.log("Script geladen!");
+    const list = document.getElementById('edu-list');
+    console.log("Liste gefunden:", list);
+});

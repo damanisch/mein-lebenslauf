@@ -277,7 +277,6 @@ details summary:hover .entry-header strong {
     border: 1px solid rgba(255, 255, 255, 0.3);
     box-shadow: 0 10px 30px rgba(0,0,0,0.05);
 }
-}
 
 .video-grid {
     display: grid;
@@ -294,7 +293,6 @@ details {
     border: 1px solid rgba(255, 255, 255, 0.3);
     transition: background 0.3s ease;
     cursor: pointer;
-}
 }
 
 summary {
@@ -369,4 +367,44 @@ details {
     background-color: rgba(255, 255, 255, 0.4) !important;
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
+}
+
+/* 1. Basis-Zustand (Alles zugeklappt) */
+.education-content, 
+.work-content, 
+.other-content,
+.dossier-content {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    visibility: hidden;
+    /* BEIM ZUGEHEN: Nach 0.8s Wartezeit sanft ausblenden (Dauer 0.4s) */
+    transition: max-height 0.4s ease, opacity 0.4s ease, visibility 0s 0.8s;
+}
+
+/* 2. Hover-Zustand (Alles aufgeklappt) */
+#edu-section:hover .education-content,
+#work-section:hover .work-content,
+#other-section:hover .other-content,
+.dossier-item:hover .dossier-content {
+    max-height: 1000px; 
+    opacity: 1;
+    visibility: visible;
+    /* BEIM REINGEHEN: Sofort sichtbar (visibility 0s), 
+       aber das Ausrollen dauert jetzt 0.8s (langsam) */
+    transition: max-height 0.8s ease-out, opacity 0.8s ease-out, visibility 0s 0s;
+}
+
+/* Dossier-Summary Optik (bleibt gleich) */
+.dossier-summary {
+    font-weight: 700;
+    padding: 10px 0;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 5px;
+    transition: color 0.2s;
+}
+
+.dossier-item:hover .dossier-summary {
+    color: #0077ff;
 }
