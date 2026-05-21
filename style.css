@@ -538,3 +538,30 @@ details {
     transform: translateY(-3px);
     box-shadow: 0 8px 15px rgba(0,119,255,0.15);
 }
+
+/* 1. Tablet-Ansicht (2 Spalten statt 3) */
+@media (max-width: 900px) {
+    .dossier-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 15px !important;
+    }
+}
+
+/* 2. Smartphone-Ansicht (1 Spalte) */
+@media (max-width: 600px) {
+    .dossier-grid {
+        grid-template-columns: 1fr !important;
+    }
+    
+    /* Kacheln auf dem Handy etwas kompakter */
+    .dossier-summary {
+        font-size: 14px !important;
+        padding: 15px 10px !important;
+    }
+
+    /* Modal-Content auf dem Handy fast bildschirmfüllend */
+    .modal-content {
+        width: 95% !important;
+        padding: 20px !important;
+    }
+}
