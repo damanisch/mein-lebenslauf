@@ -1,541 +1,716 @@
-/* Generelle Einstellungen für die ganze Seite */
-/* Der Body bekommt ein sehr helles, beruhigendes Grau */
+/* ================================================================
+   PORTFOLIO DAMIAN SCHMID — style.css
+   ----------------------------------------------------------------
+   Inhaltsverzeichnis:
+   1.  CSS-Variablen & Reset
+   2.  Stage (Startbildschirm + Kopfleiste)
+   3.  Stage: Profilbild & Text
+   4.  Stage: Intro-Video (3:4)
+   5.  Stage: Navigation (Header-Buttons)
+   6.  Hauptinhalt (main-content)
+   7.  Sektions-Wechsel (Portfolio / CV / Skills)
+   8.  Portfolio: Projektkarten (16:9 & 9:16)
+   9.  CV: Layout & Einträge
+   10. Skills: Tabelle
+   11. Übergänge & Animationen
+   ================================================================ */
+
+
+/* ----------------------------------------------------------------
+   1. CSS-VARIABLEN & RESET
+   ---------------------------------------------------------------- */
+:root {
+    /* Farben */
+    --bg:           #d4cdc4;          /* Warmes Grau-Beige (Hintergrund) */
+    --surface:      #f2efe9;          /* Heller: Karten & Sektionen */
+    --border:       #d4cfc8;          /* Dezente Trennlinien */
+    --accent:       #2c2c2c;          /* Fast-Schwarz für Titel */
+    --text:         #3d3a36;          /* Dunkler Fließtext */
+    --muted:        #888078;          /* Gedämpfte Hilfstexte */
+    --highlight:    #b5903a;          /* Goldton als Akzent */
+    --nav-active:   #2c2c2c;          /* Aktiver Nav-Button */
+    --nav-inactive: #888078;          /* Inaktiver Nav-Button */
+
+    /* Schriften */
+    --font-display: 'Cormorant Garamond', Georgia, serif;
+    --font-body:    'DM Sans', sans-serif;
+
+    /* Radien & Schatten */
+    --radius-sm:    8px;
+    --radius-md:    16px;
+    --radius-lg:    24px;
+    --shadow-soft:  0 4px 24px rgba(0,0,0,0.08);
+    --shadow-card:  0 8px 40px rgba(0,0,0,0.10);
+
+    /* Header-Höhe (wird für Scrollverhalten gebraucht) */
+    --header-h:     72px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
 body {
-    font-family: 'Inter', sans-serif;
-    color: #333;
-    line-height: 1.6;
-    padding: 40px 20px;
-    background-color: #e9ecef; /* Ein satterer Grauton als vorher */
-    margin: 0;
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+    min-height: 100vh;
+    overflow-x: hidden;
 }
 
-/* 2. Die Linien: Sichtbarer und dunkler */
-.background-lines {
+/* 1. Basis-Hintergrund (bleibt für Header und Start) */
+body {
+    background: var(--bg); /* Das ist dein bisheriges #d3ccc3 */
+}
+
+/* 2. Main-Content (der scrollbare Bereich wird heller) */
+.main-content {
+    /* Wir machen den Bereich etwas heller als den Body */
+    background: color-mix(in srgb, var(--bg), white 10%);
+    
+    padding-top: calc(var(--header-h) + 40px);
+    min-height: 100vh;
+    position: relative;
+    z-index: 10;
+}
+
+
+/* ----------------------------------------------------------------
+   2. & 4. STAGE: FULLSCREEN VIDEO INTRO
+   ---------------------------------------------------------------- */
+/* ----------------------------------------------------------------
+   2. & 4. STAGE: 9:16 VIDEO ZENTRIERT
+   ---------------------------------------------------------------- */
+/* Stage hält das Profilbild in der Mitte */
+.stage {
     position: fixed;
-    top: 0; 
-    left: 0;
-    width: 100%; 
-    height: 100%;
-    z-index: -10;
-    pointer-events: none;
-    
-    /* Wir nutzen hier ein weicheres SVG-Muster */
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 1000'%3E%3Cg stroke='%23000' stroke-width='1.2' fill='none' stroke-opacity='0.08' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M0 100c200 50 300 200 500 200s300-150 500-100'/%3E%3Cpath d='M0 400c250-100 400 100 600 50s300-200 400-50'/%3E%3Cpath d='M0 700c300 150 500-100 700 50s200 200 300 100'/%3E%3Cpath d='M200 0c50 300 150 400 0 600s-100 300 200 400'/%3E%3C/g%3E%3C/svg%3E");
-    
-    background-size: cover;
-    background-position: center;
-    
-    /* Der entscheidende Trick: Das Element leicht weichzeichnen */
-    filter: blur(1.5px);
-}
-
-.cv-container {
-    max-width: 900px;
-    margin: 0 auto;
-    background-color: rgba(255, 255, 255, 0.6) !important;
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-    padding: 50px;
+    top: 0; left: 0;
+    width: 100%; height: 100vh;
+    z-index: 100;
+    background: var(--bg);
     display: flex;
-    gap: 60px;
-    flex-wrap: wrap;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-/* LINKER BEREICH (Schmaler) */
-.left-column {
-	flex: 0 0 280px;
-}
-
-/* Rechter BEREICH (Breiter) */
-.right-column {
-	flex: 1;
-}
-
-/* Profilbild */
-.profile-pic-container {
-	text-align: center;
-	margin-bottom: 25px;
-
-}
-
-.profile-pic {
-	width: 180px;
-	height: 180px;
-	border-radius: 50%;
-	object-fit: cover;
-	object-position: 40% 0%; /* Deine angepasste Position */
-	background-color: #0077ff;
-}
-
-/* Name und Untertitel */
-.name {
-	font-family: 'Playfair Display', Georgia, serif;
-	font-size: 38px;
-	text-align: center;
-	margin: 0 0 5px 0;
-	color: #2c3e50;
-	line-height: 1.1;
-}
-
-.subtitle {
-	font-size: 18px;
-	text-align: center;
-	color: #7f8c8d;
-	margin: 0 0 40px 0;
-	font-weight: 500;
-}
-
-/* Überschriften in der Seitenleiste */
-.sidebar-section h2 {
-	font-size: 20px;
-	color: #2c3e50;
-	border-bottom: 1px solid #eee;
-	padding-bottom: 5px;
-	margin-top: 30px;
-}
-
-.sidebar-section p, .sidebar-section li {
-	font-size: 14px;
-	line-height: 1.5;
-	color: #555;
-}
-
-.sidebar-section ul {
-	padding-left: 20px;
-}
-
-/* RECHTE SPALTE: Hauptsektionen */
-.main-section h2 {
-	font-size: 22px; /* Leicht verkleinert für kompakten Look */
-	color: #2c3e50;
-	margin-top: 0;
-	margin-bottom: 15px; /* Weniger Abstand nach unten */
-	padding-bottom: 5px;
-	border-bottom: 2px solid #f0f0f0; /* Gibt den Listen einen schönen Rahmen */
-	text-transform: none;
-}
-
-.main-section {
-	margin-bottom: 35px; /* Reduzierter Abstand zwischen den grossen Blöcken */
-}
-
-/* Einzelne Einträge als kompakte Liste */
-.entry {
-	margin-bottom: 10px; /* Deutlich kompakter (vorher 20px) */
-}
-
-.entry-header {
-	display: flex;
-	justify-content: space-between; 
-	font-size: 15px;
-	color: #333;
-}
-
-.date {
-	color: #7f8c8d;
-	font-size: 14px;
-}
-
-/* Untertitel eines Eintrags (jetzt im versteckten Bereich) */
-.institution {
-	font-style: italic;
-	font-size: 13.5px;
-	color: #444; /* Etwas dunkler, da es jetzt der Titel des Inhalts ist */
-	margin: 0 0 8px 0;
-	font-weight: 500;
-}
-
-/* Die Beschreibungstexte */
-.details {
-	font-size: 13.5px;
-	line-height: 1.5;
-	color: #555;
-	margin: 0;
-}
-
-/* --- Akkordeon / Ausklapp-Effekt --- */
-
-details summary::-webkit-details-marker {
-	display: none;
-}
-details summary {
-	list-style: none;
-	cursor: pointer;
-	outline: none;
-	position: relative;
-	padding-right: 20px;
-	padding-bottom: 5px; /* Ein Hauch Luft nach unten im geschlossenen Zustand */
-}
-
-/* Der feine Pfeil */
-details summary::after {
-	content: "▼";
-	position: absolute;
-	right: 0;
-	top: 2px; /* Pfeil etwas höher, passend zur einzeiligen Ansicht */
-	font-size: 10px;
-	color: #aaa; /* Etwas dezenteres Grau */
-	transition: transform 0.3s ease;
-}
-
-details[open] summary::after {
-	transform: rotate(180deg);
-}
-
-details summary:hover .entry-header strong {
-	color: #000; 
-}
-
-/* Abstand und Styling für den aufgeklappten Text */
-.details-content {
-	padding-top: 10px;
-	padding-bottom: 15px; /* Mehr Platz unten, wenn aufgeklappt */
-	margin-top: 0;
-}
-
-.video-placeholder {
-	width: 100%;
-	aspect-ratio: 16 / 9;
-	background: linear-gradient(135deg, #3a4a5a, #2c3e50);
-	border-radius: 8px;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	color: rgba(255, 255, 255, 0.8);
-	box-shadow: inset 0 0 30px rgba(0,0,0,0.2);
-	margin-top: 10px;
-}
-
-.play-icon {
-	font-size: 50px;
-	margin-bottom: 15px;
-	opacity: 0.6;
-}
-
-.video-placeholder p {
-	font-size: 16px;
-	font-weight: 500;
-	margin: 0;
-	letter-spacing: 0.5px;
-}
-
-.dossier-section {
-	flex: 0 0 100%; /* Zwingt diesen Abschnitt, die volle Breite (100%) zu nehmen */
-	margin-top: 20px;
-	padding-top: 40px;
-	border-top: 2px solid #f0f0f0; /* Eine schöne Trennlinie zum Lebenslauf */
-}
-
-.dossier-section h2 {
-	font-size: 28px;
-	color: #2c3e50;
-	text-align: center; /* Titel zentriert in der Mitte */
-	margin-top: 0;
-	margin-bottom: 25px;
-}
-
-/* Das CSS-Grid für die Video-Galerie */
-.video-grid {
-	display: grid;
-	/* Die Magie: Macht die Videos mindestens 280px breit und füllt den Platz intelligent aus */
-	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
-	gap: 25px;
-}
-
-/* Anpassungen für die kleineren Vorschaubilder im Dossier */
-.video-placeholder.thumbnail {
-	margin-top: 0; /* Überschreibt den margin vom grossen Video */
-	cursor: pointer; /* Zeigt eine Hand beim Drüberfahren (klickbar) */
-	transition: transform 0.2s ease, box-shadow 0.2s ease; /* Weiche Animation */
-}
-
-/* Ein cooler Hover-Effekt: Die Videos heben sich leicht an, wenn man mit der Maus drüberfährt */
-.video-placeholder.thumbnail:hover {
-	transform: translateY(-5px);
-	box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-}
-
-.video-placeholder.thumbnail .play-icon {
-	font-size: 40px; /* Etwas kleineres Icon für die Thumbnails */
-	margin-bottom: 10px;
-}
-
-.video-placeholder.thumbnail p {
-	font-size: 14px;
-}
-
-.dossier-section {
-    margin-top: -30px;
-    padding: 10px;
-    background-color: rgba(255, 255, 255, 0.6) !important;
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-}
-
-.video-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px; /* Mehr Platz zwischen den Videos */
-}
-
-details {
-    margin-bottom: 15px;
-    padding: 20px;
-    border-radius: 8px;
-    background-color: rgba(255, 255, 255, 0.6) !important;
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    transition: background 0.3s ease;
-    cursor: pointer;
-}
-
-summary {
-    font-weight: 700;
-    list-style: none;
-}
-
-/* Entfernt den Standard-Pfeil (optional) */
-summary::-webkit-details-marker {
-    display: none;
-}
-/* Layout beim Ausklappen: Text links, Video rechts */
-.content-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 25px;
-    align-items: start;
-    margin-top: 15px;
-}
-
-/* Text links (Spalte 1) */
-.content-grid p {
-    grid-column: 1;
-    margin-top: 0;
-}
-
-/* Video rechts (Spalte 2) */
-.content-grid .video-grid {
-    grid-column: 2;
-    margin-top: 0;
-}
-
-/* Mobil-Ansicht: Text über Video */
-@media (max-width: 768px) {
-    .content-grid {
-        grid-template-columns: 1fr;
-    }
-    .content-grid p {
-        grid-column: 1;
-    }
-    .content-grid .video-grid {
-        grid-column: 1;
-    }
-}
-
-/* 16:9 Videos deutlich größer machen */
-.video-wrapper-16-9 {
-    width: 100%;
-    max-width: 800px; /* Hier kannst du die maximale Breite festlegen */
-    aspect-ratio: 16 / 9;
-    margin: 0 auto;
-}
-
-/* 9:16 Videos bleiben kompakt */
-.video-wrapper-9-16 {
-    width: 315px;
-    height: 560px;
-    margin: 0 auto;
-}
-
-/* Beide Klassen sollen den iframe perfekt füllen */
-.video-wrapper-16-9 iframe, 
-.video-wrapper-9-16 iframe {
-    width: 100%;
-    height: 100%;
-    border-radius: 8px;
-}
-/* Nur Transparenz, kein Layout-Risiko */
-.cv-container, 
-.dossier-section, 
-details {
-    background-color: rgba(255, 255, 255, 0.4) !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-}
-
-/* 1. Basis-Zustand (Alles zugeklappt) */
-.education-content, 
-.work-content, 
-.other-content,
-.dossier-content {
-    max-height: 0;
-    opacity: 0;
-    overflow: hidden;
-    visibility: hidden;
-    /* BEIM ZUGEHEN: Nach 0.8s Wartezeit sanft ausblenden (Dauer 0.4s) */
-    transition: max-height 0.4s ease, opacity 0.4s ease, visibility 0s 0.8s;
-}
-
-/* 2. Hover-Zustand (Alles aufgeklappt) */
-#edu-section:hover .education-content,
-#work-section:hover .work-content,
-#other-section:hover .other-content,
-.dossier-item:hover .dossier-content {
-    max-height: 1000px; 
-    opacity: 1;
-    visibility: visible;
-    /* BEIM REINGEHEN: Sofort sichtbar (visibility 0s), 
-       aber das Ausrollen dauert jetzt 0.8s (langsam) */
-    transition: max-height 0.8s ease-out, opacity 0.8s ease-out, visibility 0s 0s;
-}
-
-.dossier-summary {
-    /* Schrift & Text */
-    font-weight: 800;
-    font-size: 22px !important;
-    color: #2c3e50;
-    text-transform: uppercase; /* Lässt es strukturierter wirken */
-    letter-spacing: 1px;      /* Macht den Text moderner */
-    
-    /* Box-Formatierung */
-    background: #ffffff;      /* Weißer Hintergrund für den Button */
-    padding: 20px;
-    border-radius: 12px;      /* Abgerundete Ecken */
-    border: 1px solid #e0e0e0;/* Dezenter Rahmen */
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05); /* Leichter Schatten */
-    
-    /* Interaktion */
-    cursor: pointer;
-    margin-bottom: 20px;
-    transition: all 0.3s ease; /* Alle Änderungen animieren */
-}
-
-/* Hover-Effekt: Wenn man mit der Maus draufgeht */
-.dossier-item:hover .dossier-summary {
-    color: #0077ff;
-    border-color: #0077ff;
-    box-shadow: 0 8px 15px rgba(0,119,255,0.15); /* Schatten wird tiefer */
-    transform: translateY(-2px); /* Kachel springt leicht nach oben */
-}
-
-/* Der neue Container, der alle Kacheln umschliesst */
-.dossier-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Hier bestimmst du die Anzahl der Spalten */
-    gap: 20px; /* Abstand zwischen den Kacheln */
-    margin-top: 20px;
-}
-
-/* Optional: Damit es auf dem Handy nicht zu eng wird */
-@media (max-width: 768px) {
-    .dossier-grid { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 480px) {
-    .dossier-grid { grid-template-columns: 1fr; }
-}
-
-
-/* Checkbox ausblenden */
-.modal-toggle { display: none; }
-
-/* Overlay: Der dunkle Hintergrund */
-.modal-overlay {
-    position: fixed;
-    top: 0; left: 0; 
-    width: 100vw; height: 100vh;
-    background: rgba(0,0,0,0.7);
-    backdrop-filter: blur(8px);
-    display: none; 
-    z-index: 9998; /* Unter dem Content */
-}
-
-/* Wenn Checkbox aktiv, Overlay anzeigen */
-.modal-toggle:checked ~ .modal-overlay {
-    display: flex;
+    align-items: center;
     justify-content: center;
+}
+
+
+/* Der Video-Container als festes Overlay */
+.video-part {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg); /* Deckt den Hintergrund ab */
+    z-index: 200;
+    transition: opacity 0.5s ease;
+}
+
+/* 16:9 Format erzwingen */
+.video-wrapper-16-9 {
+    width: 80%;       /* 80% Breite vom Bildschirm */
+    max-width: 900px; /* Nie breiter als 900px */
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+
+}
+
+.video-wrapper-16-9 {
+    background-color: var(--bg); /* Garantiert Farbeinheit */
+    border: none;
+    box-shadow: none;
+    /* Der Edge-Killer: Ein weicher Verlauf, der die Kante verschluckt */
+    mask-image: radial-gradient(circle at center, black 60%, transparent 100%);
+    -webkit-mask-image: radial-gradient(circle at center, black 60%, transparent 100%);
+}
+
+
+.local-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+.local-video {
+    /* Passt das Video per Code an den neuen Hintergrund an */
+    filter: brightness(1.05) contrast(0.95); 
+}
+
+
+/* Header-Mode: Video ausblenden */
+.stage.header-mode .video-part {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* ----------------------------------------------------------------
+   3. STAGE: PROFILBILD & TEXT
+   ---------------------------------------------------------------- */
+.profile-part {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    flex-shrink: 0;
+    transition:
+        transform    0.7s cubic-bezier(0.4, 0, 0.2, 1),
+        flex-direction 0.5s ease,
+        gap          0.5s ease;
+}
+
+/* Profilbild — groß im Startbildschirm */
+.profile-pic {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: 40% 0%;
+    cursor: pointer;
+    transition:
+        width    0.7s cubic-bezier(0.4, 0, 0.2, 1),
+        height   0.7s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+}
+
+.profile-pic:hover {
+    box-shadow: 0 6px 28px rgba(0,0,0,0.18);
+}
+
+/* Name */
+.name {
+    font-family: var(--font-display);
+    font-size: 2.6rem;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 0.01em;
+    margin-top: 20px;
+    line-height: 1.15;
+    transition: font-size 0.7s cubic-bezier(0.4, 0, 0.2, 1), margin-top 0.5s ease;
+}
+
+/* Untertitel */
+.subtitle {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: var(--muted);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-top: 6px;
+    transition: font-size 0.5s ease, opacity 0.5s ease, margin-top 0.5s ease;
+}
+
+/* --- HEADER-MODE: Profil wird zur Zeile --- */
+.stage.header-mode .profile-part {
+    flex-direction: row;
+    align-items: center;
+    gap: 14px;
+}
+
+.stage.header-mode .profile-pic {
+    width: 42px;
+    height: 42px;
+}
+
+.stage.header-mode .profile-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+}
+
+.stage.header-mode .name {
+    font-size: 1.05rem;
+    margin-top: 0;
+}
+
+.stage.header-mode .subtitle {
+    font-size: 0.7rem;
+    margin-top: 1px;
+    letter-spacing: 0.1em;
+}
+
+
+
+
+/* ----------------------------------------------------------------
+   5. STAGE: NAVIGATION (nur im Header-Modus)
+   ---------------------------------------------------------------- */
+/* 1. Header oben anheften */
+.stage.header-mode {
+    position: sticky; /* Sticky statt fixed, damit es mit dem Inhalt scrollt */
+    top: 0;
+    height: var(--header-h);
+    z-index: 100;
+    display: flex;
+    justify-content: space-between; /* Profil links, Nav rechts */
+    align-items: center;
+    padding: 0 32px;
+    background: #c9c2b9;
+    border-bottom: 1px solid var(--border);
+}
+
+/* 2. Main-Content muss unter dem Header starten */
+.main-content {
+    margin-top: 0; /* Kein 100vh mehr */
+    padding-top: calc(var(--header-h) + 40px); /* Platz für den Sticky-Header */
+    min-height: 100vh;
+}
+
+/* 3. Profil im Header-Modus sauber ausrichten */
+.stage.header-mode .profile-part {
+    flex-direction: row;
+    gap: 16px;
+}
+
+.main-nav {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    
+    /* NEU: Absolut positionieren, damit es die Zentrierung nicht zerstört */
+    position: absolute; 
+    right: 32px;        
+    
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease 0.1s;
+}
+
+/* Nur sichtbar im Header-Modus */
+.stage.header-mode .main-nav {
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* Nav-Buttons */
+.nav-btn {
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--nav-inactive);
+    background: transparent;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: color 0.2s ease, background 0.2s ease;
+    white-space: nowrap;
+}
+
+.nav-btn:hover {
+    color: var(--accent);
+    background: rgba(0,0,0,0.05);
+}
+
+/* Aktiver Tab: klar hervorgehoben */
+.nav-btn.active {
+    color: var(--surface);
+    background: var(--nav-active);
+    font-weight: 500;
+}
+
+
+/* ----------------------------------------------------------------
+   6. HAUPTINHALT (main-content)
+   ----------------------------------------------------------------
+   Startet unter dem Startbildschirm.
+   Padding-top = var(--header-h) damit Inhalt nicht unter
+   dem Sticky-Header verschwindet.
+   ---------------------------------------------------------------- */
+.main-content {
+            
+    padding-top: calc(var(--header-h) + 48px);
+    min-height: 100vh;
+    position: relative;
+    z-index: 10;
+    background: var(--bg);
+}
+
+.section-main-title {
+    font-family: var(--font-display);
+    font-size: 3.5rem;
+    font-weight: 500;
+    color: var(--accent);
+    margin-bottom: 40px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border); /* Dezente Linie passend zum Design */
+    letter-spacing: -0.01em;
+}
+
+
+/* ----------------------------------------------------------------
+   7. SEKTIONS-WECHSEL (Portfolio / CV / Skills)
+   ---------------------------------------------------------------- */
+.section-panel {
+    display: none;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.section-panel.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Gemeinsamer innerer Bereich */
+.section-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 32px 80px;
+}
+
+
+/* ----------------------------------------------------------------
+   8. PORTFOLIO: PROJEKTKARTEN
+   ----------------------------------------------------------------
+   .project-landscape = 16:9
+   .project-portrait  = 9:16
+   Beide haben: Titel + Beschreibung links, Video rechts.
+   ---------------------------------------------------------------- */
+
+/* Abstand zwischen Karten */
+.project-card {
+    display: grid;
+    gap: 40px;
+    align-items: start;
+    margin-bottom: 80px;
+    padding-bottom: 80px;
+    border-bottom: 1px solid var(--border);
+}
+
+.project-card:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+/* 16:9: Text links, Video rechts (größer) */
+.project-landscape {
+    grid-template-columns: 1fr 2fr;   /* Text 1/3, Video 2/3 */
+}
+
+/* 9:16: Text links, Video rechts (schmal) */
+.project-portrait {
+    grid-template-columns: 1fr 0.7fr; /* Text nimmt mehr Platz, Video ist schlank */
     align-items: center;
 }
 
-/* Das unsichtbare Label, das den Hintergrund abdeckt */
-.overlay-closer {
+/* Text-Seite */
+.project-info {
+    padding-top: 8px;
+}
+
+.project-title {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--accent);
+    line-height: 1.2;
+    margin-bottom: 16px;
+}
+
+.project-desc {
+    font-size: 0.92rem;
+    color: var(--text);
+    line-height: 1.7;
+    font-weight: 300;
+    max-width: 38ch;
+}
+
+/* Video-Seite: der Rahmen */
+.video-frame {
+    position: relative;
+    background: #1a1a1a;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+    width: 100%;
+}
+
+/* 16:9 Seitenverhältnis */
+.ratio-16-9 {
+    aspect-ratio: 16 / 9;
+}
+
+/* 9:16 Seitenverhältnis */
+.ratio-9-16 {
+    aspect-ratio: 9 / 16;
+    max-width: 340px;   /* Nicht zu breit auf großen Bildschirmen */
+}
+
+/* Video füllt Rahmen */
+.video-frame video {
     position: absolute;
     top: 0; left: 0;
     width: 100%; height: 100%;
-    z-index: 9999;
-    cursor: pointer;
+    object-fit: cover;
+    display: block;
 }
 
-/* Der Content: Muss über dem Overlay-Closer liegen */
-.modal-content {
-    background: white;
-    padding: 40px;
-    width: 90%;
-    max-width: 800px;
-    max-height: 85vh;
-    overflow-y: auto;
-    border-radius: 20px;
-    position: relative;
-    z-index: 10000; /* Muss am höchsten sein */
-    cursor: default;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-}
-
-.close-button {
+/* Platzhalter-Overlay (erscheint wenn keine Video-Datei vorhanden) */
+.video-placeholder-overlay {
     position: absolute;
-    top: 15px; right: 25px;
-    font-size: 24px; cursor: pointer; color: #333;
-    z-index: 10001;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    pointer-events: none;
+}
+
+/* Wenn ein echtes Video geladen ist, Overlay ausblenden */
+.video-frame video:not([src=""]) ~ .video-placeholder-overlay {
+    display: none;
+}
+
+.placeholder-label {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    color: rgba(255,255,255,0.25);
+    letter-spacing: 0.08em;
+    user-select: none;
+}
+
+/* Responsive: unter 900px untereinander */
+@media (max-width: 900px) {
+    .project-landscape,
+    .project-portrait {
+        grid-template-columns: 1fr;
+    }
+    .ratio-9-16 {
+        max-width: 260px;
+        margin: 0 auto;
+    }
 }
 
 
-/* 1. Ein sauberes Grid, ohne die starre "Landkarte" */
-.dossier-grid {
-    display: grid !important;
-    grid-template-columns: repeat(3, 1fr) !important;
-    grid-template-areas: none !important; /* Landkarte deaktivieren */
-    gap: 15px !important;
-    margin-top: 25px !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-}
-
-/* 2. Die Kacheln */
-.dossier-item {
-    display: block !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-    margin: 0 !important;
-    /* Damit die Kachel die gleiche Höhe hat, falls du es willst: */
-    display: flex !important;
+/* ----------------------------------------------------------------
+   9. CV: LAYOUT & EINTRÄGE
+   ---------------------------------------------------------------- */
+.cv-layout {
+    display: flex;
     flex-direction: column;
+    gap: 56px;
 }
 
-/* 3. Der klickbare Button (ehemals .dossier-summary) */
-.dossier-summary {
-    display: block !important;
-    font-weight: 800 !important;
-    font-size: 16px !important; /* Schrift etwas kleiner für das 3-Spalten-Layout */
-    text-align: center;
-    background: #ffffff;
-    padding: 25px 15px !important; /* Padding angepasst */
-    border-radius: 12px;
-    border: 1px solid #e0e0e0;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    height: 100%; /* Füllt die Kachel aus */
+/* Kategorie-Block */
+.cv-block {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    padding: 40px 44px;
+    box-shadow: var(--shadow-soft);
 }
 
-.dossier-item:hover .dossier-summary {
-    color: #0077ff;
-    border-color: #0077ff;
-    transform: translateY(-3px);
-    box-shadow: 0 8px 15px rgba(0,119,255,0.15);
+/* Kategorie-Titel (Berufserfahrung / Ausbildung / Sonstiges) */
+.cv-category-title {
+    font-family: var(--font-display);
+    font-size: 1.9rem;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 0.01em;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
 }
 
+/* Einzelner Eintrag */
+.cv-entry {
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.cv-entry:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+/* Zeile: Titel + Zeitraum */
+.cv-entry-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 4px;
+}
+
+.cv-entry-title {
+    font-family: var(--font-body);
+    font-size: 0.97rem;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: 0.01em;
+}
+
+.cv-entry-period {
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    font-weight: 300;
+    color: var(--highlight);
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+    text-transform: uppercase;
+}
+
+/* Organisation / Arbeitgeber */
+.cv-entry-org {
+    font-size: 0.83rem;
+    font-style: italic;
+    color: var(--muted);
+    margin-bottom: 6px;
+    line-height: 1.5;
+}
+
+/* Beschreibungstext */
+.cv-entry-desc {
+    font-size: 0.87rem;
+    color: var(--text);
+    line-height: 1.65;
+    font-weight: 300;
+    max-width: 64ch;
+}
+
+@media (max-width: 640px) {
+    .cv-block {
+        padding: 28px 24px;
+    }
+    .cv-entry-header {
+        flex-direction: column;
+        gap: 2px;
+    }
+}
+
+
+/* ----------------------------------------------------------------
+   10. SKILLS: TABELLE
+   ---------------------------------------------------------------- */
+.skills-table-wrapper {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+    overflow: hidden;
+    max-width: 720px;
+}
+
+.skills-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--font-body);
+}
+
+/* Kopfzeile */
+.skills-table thead tr {
+    background: var(--accent);
+}
+
+.skills-table th {
+    padding: 16px 32px;
+    text-align: left;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+}
+
+/* Datenzeilen */
+.skills-table tbody tr {
+    border-bottom: 1px solid var(--border);
+    transition: background 0.18s ease;
+}
+
+.skills-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.skills-table tbody tr:hover {
+    background: rgba(0,0,0,0.03);
+}
+
+.skills-table td {
+    padding: 15px 32px;
+    font-size: 0.9rem;
+    color: var(--text);
+    font-weight: 400;
+}
+
+/* Niveau-Badges */
+.niveau-badge {
+    display: inline-block;
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.niveau-experte {
+    background: rgba(44, 44, 44, 0.1);
+    color: var(--accent);
+    border: 1px solid rgba(44, 44, 44, 0.2);
+}
+
+.niveau-fortgeschritten {
+    background: rgba(181, 144, 58, 0.1);
+    color: var(--highlight);
+    border: 1px solid rgba(181, 144, 58, 0.25);
+}
+
+.niveau-grundkenntnisse {
+    background: rgba(136, 128, 120, 0.1);
+    color: var(--muted);
+    border: 1px solid rgba(136, 128, 120, 0.2);
+}
+
+@media (max-width: 640px) {
+    .skills-table th,
+    .skills-table td {
+        padding: 12px 20px;
+    }
+}
+
+
+/* ----------------------------------------------------------------
+   11. ÜBERGÄNGE & ANIMATIONEN
+   ---------------------------------------------------------------- */
+
+/* Sanfter Einblend-Effekt beim Sektions-Wechsel */
+@keyframes fadeSlideIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.section-panel.active {
+    animation: fadeSlideIn 0.45s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Karten-Hover-Effekt */
+.project-card:hover .video-frame {
+    box-shadow: 0 12px 50px rgba(0,0,0,0.15);
+    transition: box-shadow 0.3s ease;
+}
+
+/* Skills-Zeilen leicht verzögert einblenden */
+.skills-table tbody tr {
+    animation: fadeSlideIn 0.3s ease backwards;
+}
+.skills-table tbody tr:nth-child(1)  { animation-delay: 0.05s; }
+.skills-table tbody tr:nth-child(2)  { animation-delay: 0.10s; }
+.skills-table tbody tr:nth-child(3)  { animation-delay: 0.15s; }
+.skills-table tbody tr:nth-child(4)  { animation-delay: 0.20s; }
+.skills-table tbody tr:nth-child(5)  { animation-delay: 0.25s; }
+.skills-table tbody tr:nth-child(6)  { animation-delay: 0.30s; }
+.skills-table tbody tr:nth-child(7)  { animation-delay: 0.35s; }
+.skills-table tbody tr:nth-child(8)  { animation-delay: 0.40s; }
+.skills-table tbody tr:nth-child(9)  { animation-delay: 0.45s; }
+.skills-table tbody tr:nth-child(10) { animation-delay: 0.50s; }
