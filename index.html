@@ -28,7 +28,7 @@
 <!-- ============================================================
      STARTBILDSCHIRM (Stage)
      Sichtbar beim ersten Laden. Wird beim Scrollen zur Kopfleiste.
-     Klick auf Profilbild -> sanft zurück zum Start.
+     Klick auf Profilbild → sanft zurück zum Start (Reload).
      ============================================================ -->
 <div class="stage" id="stage">
 
@@ -38,68 +38,82 @@
         <div class="profile-text">
             <h1 class="name">Damian Schmid</h1>
             <p class="subtitle">Content Specialist</p>
+            <a href="mailto:info@damianschmid.com" class="email-link">info@damianschmid.com</a>
         </div>
     </div>
 
-    <!-- Navigation (nur sichtbar im Header-Modus) -->
+    <!-- Desktop-Navigation (nur sichtbar im Header-Modus) -->
     <nav class="main-nav" id="mainNav">
         <button class="nav-btn active" data-section="portfolio" onclick="showSection('portfolio')">Portfolio</button>
-        <button class="nav-btn" data-section="cv" onclick="showSection('cv')">CV</button>
-        <button class="nav-btn" data-section="skills" onclick="showSection('skills')">Skills</button>
+        <button class="nav-btn" data-section="cv"        onclick="showSection('cv')">CV</button>
+        <button class="nav-btn" data-section="skills"    onclick="showSection('skills')">Skills</button>
     </nav>
+
+    <!-- Hamburger-Button (nur auf Mobile sichtbar im Header-Modus) -->
+    <button class="hamburger" id="hamburger" aria-label="Menü öffnen" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
 
     <!-- Rechte Seite: Intro-Video (erscheint beim Scrollen) -->
     <div class="video-part" id="videoPart">
         <div class="video-wrapper-16-9 video-container">
             <video id="myVideo" autoplay muted playsinline poster="vortest.png" class="local-video">
-    <source src="test2.mp4" type="video/mp4">
-    <source src="test2.webm" type="video/webm">
-    Dein Browser unterstützt keine Videos.
-</video>
+                <source src="test2.mp4"  type="video/mp4">
+                <source src="test2.webm" type="video/webm">
+                Dein Browser unterstützt keine Videos.
+            </video>
         </div>
     </div>
 
 </div><!-- /stage -->
 
+<!-- Mobile Seitenmenü (Slide-in von rechts) -->
+<div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+<nav class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Menü schliessen">✕</button>
+    <button class="mobile-nav-btn" data-section="portfolio" onclick="showSection('portfolio'); closeMobileMenu()">Portfolio</button>
+    <button class="mobile-nav-btn" data-section="cv"        onclick="showSection('cv');        closeMobileMenu()">CV</button>
+    <button class="mobile-nav-btn" data-section="skills"    onclick="showSection('skills');    closeMobileMenu()">Skills</button>
+</nav>
+
 
 <!-- ============================================================
      HAUPTINHALT
-     Erscheint nach dem Startbildschirm. Enthält alle drei Sektionen.
+     Enthält alle drei Sektionen (Portfolio / CV / Skills).
      ============================================================ -->
 <main class="main-content" id="mainContent">
 
 
     <!-- ----------------------------------------------------------
          SEKTION 1: PORTFOLIO
-         Zwei Vorlagen als Platzhalter: 16:9 und 9:16.
+         Zwei Vorlagen: 16:9 (Querformat) und 9:16 (Hochformat).
          Einfach duplizieren für weitere Projekte.
          ---------------------------------------------------------- -->
     <section class="section-panel" id="section-portfolio">
         <div class="section-inner">
             <h1 class="section-main-title">Portfolio</h1>
 
-
-            <!-- *** VORLAGE 1: 16:9 (Querformat) ***
-                 Dupliziere diesen Block für weitere 16:9-Projekte. -->
+            <!-- 16:9 Querformat -->
             <article class="project-card project-landscape">
                 <div class="project-info">
                     <h2 class="project-title">Hello Fresh</h2>
                     <p class="project-desc">
-                        Hier steht die Projektbeschreibung. Erkläre kurz, worum es geht, 
-                        welche Rolle du hattest und was das Ergebnis war. 
+                        Hier steht die Projektbeschreibung. Erkläre kurz, worum es geht,
+                        welche Rolle du hattest und was das Ergebnis war.
                         Dieser Text ist ein Platzhalter — ersetze ihn durch deine eigenen Inhalte.
                     </p>
                 </div>
                 <div class="project-media">
                     <div class="video-frame ratio-16-9">
-                        <!-- Ersetze "video-platzhalter.mp4" mit deiner Videodatei -->
-                        <iframe 
-                src="https://www.youtube-nocookie.com/embed/h-LmsvXQ8DU" 
-                title="Ricola Video" 
-                frameborder="0" 
-                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen>
-            </iframe>
+                        <iframe
+                            src="https://www.youtube-nocookie.com/embed/h-LmsvXQ8DU"
+                            title="Hello Fresh Video"
+                            frameborder="0"
+                            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                        </iframe>
                         <div class="video-placeholder-overlay">
                             <span class="placeholder-label">Video 16:9</span>
                         </div>
@@ -107,32 +121,27 @@
                 </div>
             </article>
 
-                
-
-         <article class="project-card project-portrait">
-    <div class="project-info">
-        <h2 class="project-title">Ricola</h2>
-        <p class="project-desc">
-            Hier steht die Projektbeschreibung für das Ricola-Video. 
-            Es ist ein vertikales Format, perfekt optimiert für mobile Endgeräte.
-        </p>
-    </div>
-    <div class="project-media">
-        <div class="video-frame ratio-9-16">
-            <iframe 
-                src="https://www.youtube-nocookie.com/embed/hUsrRU0KSS8" 
-                title="Ricola Video" 
-                frameborder="0" 
-                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen>
-            </iframe>
-        </div>
-    </div>
-</article>
-
-
-
-
+            <!-- 9:16 Hochformat -->
+            <article class="project-card project-portrait">
+                <div class="project-info">
+                    <h2 class="project-title">Ricola</h2>
+                    <p class="project-desc">
+                        Hier steht die Projektbeschreibung für das Ricola-Video.
+                        Es ist ein vertikales Format, perfekt optimiert für mobile Endgeräte.
+                    </p>
+                </div>
+                <div class="project-media">
+                    <div class="video-frame ratio-9-16">
+                        <iframe
+                            src="https://www.youtube-nocookie.com/embed/hUsrRU0KSS8"
+                            title="Ricola Video"
+                            frameborder="0"
+                            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
+            </article>
 
         </div>
     </section><!-- /section-portfolio -->
@@ -140,7 +149,6 @@
 
     <!-- ----------------------------------------------------------
          SEKTION 2: CV
-         Direkt sichtbar (kein Aufklappen). 
          Drei Kategorien: Berufserfahrung, Ausbildung, Sonstiges.
          ---------------------------------------------------------- -->
     <section class="section-panel" id="section-cv">
@@ -267,68 +275,97 @@
 
     <!-- ----------------------------------------------------------
          SEKTION 3: SKILLS
-         Tabelle mit zwei Spalten: Skill + Niveau.
-         Platzhalter — ersetze die Zeilen durch deine eigenen Fähigkeiten.
+         Karten-Layout mit Skill-Balken statt nüchterner Tabelle.
+         Niveau-Klassen: niveau-experte / niveau-fortgeschritten / niveau-grundkenntnisse
+         data-level: 0–100 (steuert die Balkenbreite per JS)
          ---------------------------------------------------------- -->
     <section class="section-panel" id="section-skills">
         <div class="section-inner">
+            <h1 class="section-main-title">Skills</h1>
 
-            <div class="skills-table-wrapper">
-                <table class="skills-table">
-                    <thead>
-                        <tr>
-                            <th>Skill</th>
-                            <th>Niveau</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- *** PLATZHALTER-ZEILEN ***
-                             Dupliziere <tr>...</tr> für weitere Skills. 
-                             Niveau-Klassen: niveau-experte / niveau-fortgeschritten / niveau-grundkenntnisse -->
+            <div class="skills-grid">
 
-                        <tr>
-                            <td>Videoproduktion & Regie</td>
-                            <td><span class="niveau-badge niveau-experte">Experte</span></td>
-                        </tr>
-                        <tr>
-                            <td>Drehbuch & Storytelling</td>
-                            <td><span class="niveau-badge niveau-experte">Experte</span></td>
-                        </tr>
-                        <tr>
-                            <td>Videoschnitt (Premiere Pro)</td>
-                            <td><span class="niveau-badge niveau-fortgeschritten">Fortgeschritten</span></td>
-                        </tr>
-                        <tr>
-                            <td>Content-Strategie</td>
-                            <td><span class="niveau-badge niveau-fortgeschritten">Fortgeschritten</span></td>
-                        </tr>
-                        <tr>
-                            <td>Social-Media-Content</td>
-                            <td><span class="niveau-badge niveau-fortgeschritten">Fortgeschritten</span></td>
-                        </tr>
-                        <tr>
-                            <td>Lektorat & Texten</td>
-                            <td><span class="niveau-badge niveau-experte">Experte</span></td>
-                        </tr>
-                        <tr>
-                            <td>Fotografie</td>
-                            <td><span class="niveau-badge niveau-fortgeschritten">Fortgeschritten</span></td>
-                        </tr>
-                        <tr>
-                            <td>Projektmanagement</td>
-                            <td><span class="niveau-badge niveau-fortgeschritten">Fortgeschritten</span></td>
-                        </tr>
-                        <tr>
-                            <td>Adobe After Effects</td>
-                            <td><span class="niveau-badge niveau-grundkenntnisse">Grundkenntnisse</span></td>
-                        </tr>
-                        <tr>
-                            <td>Platzhalter-Skill</td>
-                            <td><span class="niveau-badge niveau-grundkenntnisse">Grundkenntnisse</span></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+                <div class="skill-card">
+                    <div class="skill-card-header">
+                        <span class="skill-name">Videoproduktion &amp; Regie</span>
+                        <span class="niveau-badge niveau-experte">Experte</span>
+                    </div>
+                    <div class="skill-bar-track"><div class="skill-bar-fill" data-level="95"></div></div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-card-header">
+                        <span class="skill-name">Drehbuch &amp; Storytelling</span>
+                        <span class="niveau-badge niveau-experte">Experte</span>
+                    </div>
+                    <div class="skill-bar-track"><div class="skill-bar-fill" data-level="95"></div></div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-card-header">
+                        <span class="skill-name">Lektorat &amp; Texten</span>
+                        <span class="niveau-badge niveau-experte">Experte</span>
+                    </div>
+                    <div class="skill-bar-track"><div class="skill-bar-fill" data-level="92"></div></div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-card-header">
+                        <span class="skill-name">Videoschnitt (Premiere Pro)</span>
+                        <span class="niveau-badge niveau-fortgeschritten">Fortgeschritten</span>
+                    </div>
+                    <div class="skill-bar-track"><div class="skill-bar-fill" data-level="72"></div></div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-card-header">
+                        <span class="skill-name">Content-Strategie</span>
+                        <span class="niveau-badge niveau-fortgeschritten">Fortgeschritten</span>
+                    </div>
+                    <div class="skill-bar-track"><div class="skill-bar-fill" data-level="70"></div></div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-card-header">
+                        <span class="skill-name">Social-Media-Content</span>
+                        <span class="niveau-badge niveau-fortgeschritten">Fortgeschritten</span>
+                    </div>
+                    <div class="skill-bar-track"><div class="skill-bar-fill" data-level="68"></div></div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-card-header">
+                        <span class="skill-name">Fotografie</span>
+                        <span class="niveau-badge niveau-fortgeschritten">Fortgeschritten</span>
+                    </div>
+                    <div class="skill-bar-track"><div class="skill-bar-fill" data-level="65"></div></div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-card-header">
+                        <span class="skill-name">Projektmanagement</span>
+                        <span class="niveau-badge niveau-fortgeschritten">Fortgeschritten</span>
+                    </div>
+                    <div class="skill-bar-track"><div class="skill-bar-fill" data-level="62"></div></div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-card-header">
+                        <span class="skill-name">Adobe After Effects</span>
+                        <span class="niveau-badge niveau-grundkenntnisse">Grundkenntnisse</span>
+                    </div>
+                    <div class="skill-bar-track"><div class="skill-bar-fill" data-level="35"></div></div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-card-header">
+                        <span class="skill-name">Platzhalter-Skill</span>
+                        <span class="niveau-badge niveau-grundkenntnisse">Grundkenntnisse</span>
+                    </div>
+                    <div class="skill-bar-track"><div class="skill-bar-fill" data-level="30"></div></div>
+                </div>
+
+            </div><!-- /skills-grid -->
 
         </div>
     </section><!-- /section-skills -->
@@ -337,6 +374,17 @@
 </main><!-- /main-content -->
 
 
+<footer class="site-footer">
+    <div class="footer-content">
+        <p class="copyright">© 2026 Damian Schmid</p>
+        <nav class="footer-nav">
+            <a href="datenschutz.html">Datenschutz</a>
+            <a href="mailto:info@damianschmid.com">info@damianschmid.com</a>
+        </nav>
+    </div>
+</footer>
+
 <script src="script.js"></script>
+
 </body>
 </html>

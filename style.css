@@ -5,14 +5,16 @@
    1.  CSS-Variablen & Reset
    2.  Stage (Startbildschirm + Kopfleiste)
    3.  Stage: Profilbild & Text
-   4.  Stage: Intro-Video (3:4)
+   4.  Stage: Intro-Video
    5.  Stage: Navigation (Header-Buttons)
-   6.  Hauptinhalt (main-content)
-   7.  Sektions-Wechsel (Portfolio / CV / Skills)
-   8.  Portfolio: Projektkarten (16:9 & 9:16)
-   9.  CV: Layout & Einträge
-   10. Skills: Tabelle
-   11. Übergänge & Animationen
+   6.  Hamburger-Menü & Mobile Seitenleiste
+   7.  Hauptinhalt (main-content)
+   8.  Sektions-Wechsel (Portfolio / CV / Skills)
+   9.  Portfolio: Projektkarten (16:9 & 9:16)
+   10. CV: Layout & Einträge
+   11. Skills: Karten-Grid mit Balken
+   12. Übergänge & Animationen
+   13. Footer
    ================================================================ */
 
 
@@ -21,15 +23,15 @@
    ---------------------------------------------------------------- */
 :root {
     /* Farben */
-    --bg:           #d4cdc4;          /* Warmes Grau-Beige (Hintergrund) */
-    --surface:      #f2efe9;          /* Heller: Karten & Sektionen */
-    --border:       #d4cfc8;          /* Dezente Trennlinien */
-    --accent:       #2c2c2c;          /* Fast-Schwarz für Titel */
-    --text:         #3d3a36;          /* Dunkler Fließtext */
-    --muted:        #888078;          /* Gedämpfte Hilfstexte */
-    --highlight:    #b5903a;          /* Goldton als Akzent */
-    --nav-active:   #2c2c2c;          /* Aktiver Nav-Button */
-    --nav-inactive: #888078;          /* Inaktiver Nav-Button */
+    --bg:           #d4cdc4;
+    --surface:      #f2efe9;
+    --border:       #d4cfc8;
+    --accent:       #2c2c2c;
+    --text:         #3d3a36;
+    --muted:        #888078;
+    --highlight:    #b5903a;
+    --nav-active:   #2c2c2c;
+    --nav-inactive: #888078;
 
     /* Schriften */
     --font-display: 'Cormorant Garamond', Georgia, serif;
@@ -42,7 +44,7 @@
     --shadow-soft:  0 4px 24px rgba(0,0,0,0.08);
     --shadow-card:  0 8px 40px rgba(0,0,0,0.10);
 
-    /* Header-Höhe (wird für Scrollverhalten gebraucht) */
+    /* Header-Höhe */
     --header-h:     72px;
 }
 
@@ -60,25 +62,9 @@ body {
 }
 
 
-/* 2. Main-Content (der scrollbare Bereich wird heller) */
-.main-content {
-    /* Wir machen den Bereich etwas heller als den Body */
-    background: color-mix(in srgb, var(--bg), white 10%);
-    
-    padding-top: calc(var(--header-h) + 40px);
-    min-height: 100vh;
-    position: relative;
-    z-index: 10;
-}
-
-
 /* ----------------------------------------------------------------
-   2. & 4. STAGE: FULLSCREEN VIDEO INTRO
+   2. STAGE: FULLSCREEN STARTBILDSCHIRM
    ---------------------------------------------------------------- */
-/* ----------------------------------------------------------------
-   2. & 4. STAGE: 9:16 VIDEO ZENTRIERT
-   ---------------------------------------------------------------- */
-/* Stage hält das Profilbild in der Mitte */
 .stage {
     position: fixed;
     top: 0; left: 0;
@@ -90,58 +76,20 @@ body {
     justify-content: center;
 }
 
-
-/* Der Video-Container als festes Overlay */
-.video-part {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100vw;
-    height: 100vh;
+/* Header-Modus: sticky Leiste oben */
+.stage.header-mode {
+    position: sticky;
+    top: 0;
+    height: var(--header-h);
+    z-index: 100;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
-    background: var(--bg); /* Deckt den Hintergrund ab */
-    z-index: 200;
-    transition: opacity 0.5s ease;
+    padding: 0 32px;
+    background: #c9c2b9;
+    border-bottom: 1px solid var(--border);
 }
 
-/* 16:9 Format erzwingen */
-.video-wrapper-16-9 {
-    width: 80%;       /* 80% Breite vom Bildschirm */
-    max-width: 900px; /* Nie breiter als 900px */
-    aspect-ratio: 16 / 9;
-    overflow: hidden;
-
-}
-
-.video-wrapper-16-9 {
-    background-color: var(--bg); /* Garantiert Farbeinheit */
-    border: none;
-    box-shadow: none;
-    /* Der Edge-Killer: Ein weicher Verlauf, der die Kante verschluckt */
-    mask-image: radial-gradient(circle at center, black 60%, transparent 100%);
-    -webkit-mask-image: radial-gradient(circle at center, black 60%, transparent 100%);
-}
-
-
-.local-video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-
-.local-video {
-    /* Passt das Video per Code an den neuen Hintergrund an */
-    filter: brightness(1.05) contrast(0.95); 
-}
-
-
-/* Header-Mode: Video ausblenden */
-.stage.header-mode .video-part {
-    opacity: 0;
-    pointer-events: none;
-}
 
 /* ----------------------------------------------------------------
    3. STAGE: PROFILBILD & TEXT
@@ -153,12 +101,11 @@ body {
     text-align: center;
     flex-shrink: 0;
     transition:
-        transform    0.7s cubic-bezier(0.4, 0, 0.2, 1),
+        transform      0.7s cubic-bezier(0.4, 0, 0.2, 1),
         flex-direction 0.5s ease,
-        gap          0.5s ease;
+        gap            0.5s ease;
 }
 
-/* Profilbild — groß im Startbildschirm */
 .profile-pic {
     width: 180px;
     height: 180px;
@@ -167,17 +114,14 @@ body {
     object-position: 40% 0%;
     cursor: pointer;
     transition:
-        width    0.7s cubic-bezier(0.4, 0, 0.2, 1),
-        height   0.7s cubic-bezier(0.4, 0, 0.2, 1),
+        width      0.7s cubic-bezier(0.4, 0, 0.2, 1),
+        height     0.7s cubic-bezier(0.4, 0, 0.2, 1),
         box-shadow 0.3s ease;
     box-shadow: 0 4px 20px rgba(0,0,0,0.12);
 }
 
-.profile-pic:hover {
-    box-shadow: 0 6px 28px rgba(0,0,0,0.18);
-}
+.profile-pic:hover { box-shadow: 0 6px 28px rgba(0,0,0,0.18); }
 
-/* Name */
 .name {
     font-family: var(--font-display);
     font-size: 2.6rem;
@@ -189,7 +133,6 @@ body {
     transition: font-size 0.7s cubic-bezier(0.4, 0, 0.2, 1), margin-top 0.5s ease;
 }
 
-/* Untertitel */
 .subtitle {
     font-family: var(--font-body);
     font-size: 0.9rem;
@@ -201,7 +144,19 @@ body {
     transition: font-size 0.5s ease, opacity 0.5s ease, margin-top 0.5s ease;
 }
 
-/* --- HEADER-MODE: Profil wird zur Zeile --- */
+.email-link {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    color: var(--highlight);
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+    margin-top: 6px;
+    display: inline-block;
+}
+
+.email-link:hover { text-decoration: underline; }
+
+/* --- Header-Modus: Profil wird zur kompakten Zeile --- */
 .stage.header-mode .profile-part {
     flex-direction: row;
     align-items: center;
@@ -231,60 +186,99 @@ body {
     letter-spacing: 0.1em;
 }
 
-
+.stage.header-mode .email-link {
+    font-size: 0.7rem;
+    opacity: 0.8;
+    margin-top: 1px;
+}
 
 
 /* ----------------------------------------------------------------
-   5. STAGE: NAVIGATION (nur im Header-Modus)
+   4. STAGE: INTRO-VIDEO
    ---------------------------------------------------------------- */
-/* 1. Header oben anheften */
-.stage.header-mode {
-    position: sticky; /* Sticky statt fixed, damit es mit dem Inhalt scrollt */
-    top: 0;
-    height: var(--header-h);
-    z-index: 100;
+.video-part {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
     display: flex;
-    justify-content: space-between; /* Profil links, Nav rechts */
     align-items: center;
-    padding: 0 32px;
-    background: #c9c2b9;
-    border-bottom: 1px solid var(--border);
+    justify-content: center;
+    background: var(--bg);
+    z-index: 200;
+    transition: opacity 0.5s ease;
 }
 
-/* 2. Main-Content muss unter dem Header starten */
-.main-content {
-    margin-top: 0; /* Kein 100vh mehr */
-    padding-top: calc(var(--header-h) + 40px); /* Platz für den Sticky-Header */
-    min-height: 100vh;
+/* Desktop: 16:9 mit Vignetten-Maske */
+.video-wrapper-16-9 {
+    width: 80%;
+    max-width: 900px;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background-color: var(--bg);
+    border: none;
+    box-shadow: none;
+    mask-image: radial-gradient(circle at center, black 60%, transparent 100%);
+    -webkit-mask-image: radial-gradient(circle at center, black 60%, transparent 100%);
 }
 
-/* 3. Profil im Header-Modus sauber ausrichten */
-.stage.header-mode .profile-part {
-    flex-direction: row;
-    gap: 16px;
+.local-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(1.05) contrast(0.95);
 }
 
+/* Header-Modus: Video unsichtbar */
+.stage.header-mode .video-part {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Mobile: Video füllt den ganzen Bildschirm (cropped Hochformat) */
+@media (max-width: 640px) {
+    .video-part {
+        align-items: stretch;
+        justify-content: stretch;
+    }
+
+    .video-wrapper-16-9 {
+        width: 100%;
+        max-width: none;
+        height: 100%;
+        aspect-ratio: unset;            /* Kein fixes Verhältnis mehr */
+        mask-image: none;
+        -webkit-mask-image: none;
+    }
+
+    .local-video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;              /* Croppt das 16:9-Video auf Hochformat */
+        object-position: center center;
+    }
+}
+
+
+/* ----------------------------------------------------------------
+   5. STAGE: DESKTOP-NAVIGATION (nur im Header-Modus)
+   ---------------------------------------------------------------- */
 .main-nav {
     display: flex;
     align-items: center;
     gap: 4px;
-    
-    /* NEU: Absolut positionieren, damit es die Zentrierung nicht zerstört */
-    position: absolute; 
-    right: 32px;        
-    
+    position: absolute;
+    right: 32px;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.4s ease 0.1s;
 }
 
-/* Nur sichtbar im Header-Modus */
 .stage.header-mode .main-nav {
     opacity: 1;
     pointer-events: all;
 }
 
-/* Nav-Buttons */
 .nav-btn {
     font-family: var(--font-body);
     font-size: 0.82rem;
@@ -301,28 +295,157 @@ body {
     white-space: nowrap;
 }
 
-.nav-btn:hover {
-    color: var(--accent);
-    background: rgba(0,0,0,0.05);
-}
+.nav-btn:hover { color: var(--accent); background: rgba(0,0,0,0.05); }
 
-/* Aktiver Tab: klar hervorgehoben */
 .nav-btn.active {
     color: var(--surface);
     background: var(--nav-active);
     font-weight: 500;
 }
 
+/* Desktop-Nav auf Mobile ausblenden */
+@media (max-width: 640px) {
+    .main-nav { display: none; }
+}
+
 
 /* ----------------------------------------------------------------
-   6. HAUPTINHALT (main-content)
-   ----------------------------------------------------------------
-   Startet unter dem Startbildschirm.
-   Padding-top = var(--header-h) damit Inhalt nicht unter
-   dem Sticky-Header verschwindet.
+   6. HAMBURGER-MENÜ & MOBILE SEITENLEISTE
+   ---------------------------------------------------------------- */
+
+/* Hamburger-Button — nur auf Mobile im Header-Modus sichtbar */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: var(--radius-sm);
+    transition: background 0.2s ease;
+    flex-shrink: 0;
+}
+
+.hamburger:hover { background: rgba(0,0,0,0.06); }
+
+.hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--accent);
+    border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Hamburger sichtbar machen: nur Mobile + Header-Modus */
+@media (max-width: 640px) {
+    .stage.header-mode .hamburger {
+        display: flex;
+        position: absolute;
+        right: 16px;
+    }
+}
+
+/* Aktiv-Zustand: X-Form */
+.hamburger.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.is-open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.hamburger.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* Dunkles Overlay hinter der Seitenleiste */
+.mobile-menu-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.3);
+    z-index: 290;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.mobile-menu-overlay.is-open {
+    opacity: 1;
+}
+
+/* Seitenleiste selbst */
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    right: -260px;         /* Versteckt rechts außen */
+    width: 240px;
+    height: 100%;
+    background: var(--surface);
+    z-index: 300;
+    display: flex;
+    flex-direction: column;
+    padding: 80px 28px 40px;
+    gap: 8px;
+    box-shadow: -4px 0 24px rgba(0,0,0,0.12);
+    transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobile-menu.is-open {
+    right: 0;
+}
+
+/* Schließen-Button */
+.mobile-menu-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: transparent;
+    border: none;
+    font-size: 1.1rem;
+    color: var(--muted);
+    cursor: pointer;
+    padding: 6px 10px;
+    border-radius: var(--radius-sm);
+    transition: color 0.2s ease, background 0.2s ease;
+}
+
+.mobile-menu-close:hover { color: var(--accent); background: rgba(0,0,0,0.05); }
+
+/* Mobile Nav-Buttons */
+.mobile-nav-btn {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: var(--accent);
+    background: transparent;
+    border: none;
+    text-align: left;
+    padding: 12px 0;
+    cursor: pointer;
+    border-bottom: 1px solid var(--border);
+    letter-spacing: 0.01em;
+    transition: color 0.2s ease, padding-left 0.2s ease;
+}
+
+.mobile-nav-btn:last-child { border-bottom: none; }
+
+.mobile-nav-btn:hover {
+    color: var(--highlight);
+    padding-left: 8px;
+}
+
+/* Overlay + Menü nur auf Mobile anzeigen */
+.mobile-menu-overlay.is-open { display: block; }
+
+@media (min-width: 641px) {
+    .mobile-menu,
+    .mobile-menu-overlay,
+    .hamburger { display: none !important; }
+}
+
+
+/* ----------------------------------------------------------------
+   7. HAUPTINHALT (main-content)
    ---------------------------------------------------------------- */
 .main-content {
-            
     padding-top: calc(var(--header-h) + 48px);
     min-height: 100vh;
     position: relative;
@@ -337,13 +460,13 @@ body {
     color: var(--accent);
     margin-bottom: 40px;
     padding-bottom: 12px;
-    border-bottom: 1px solid var(--border); /* Dezente Linie passend zum Design */
+    border-bottom: 1px solid var(--border);
     letter-spacing: -0.01em;
 }
 
 
 /* ----------------------------------------------------------------
-   7. SEKTIONS-WECHSEL (Portfolio / CV / Skills)
+   8. SEKTIONS-WECHSEL
    ---------------------------------------------------------------- */
 .section-panel {
     display: block;
@@ -353,25 +476,21 @@ body {
     margin-top: 40px;
 }
 
-
-
-/* Gemeinsamer innerer Bereich */
 .section-inner {
     max-width: 1080px;
     margin: 0 auto;
     padding: 0 32px 80px;
 }
 
+@media (max-width: 640px) {
+    .section-inner { padding: 0 16px 60px; }
+    .section-main-title { font-size: 2.4rem; }
+}
+
 
 /* ----------------------------------------------------------------
-   8. PORTFOLIO: PROJEKTKARTEN
-   ----------------------------------------------------------------
-   .project-landscape = 16:9
-   .project-portrait  = 9:16
-   Beide haben: Titel + Beschreibung links, Video rechts.
+   9. PORTFOLIO: PROJEKTKARTEN (16:9 & 9:16)
    ---------------------------------------------------------------- */
-
-/* Abstand zwischen Karten */
 .project-card {
     display: grid;
     gap: 40px;
@@ -386,21 +505,16 @@ body {
     margin-bottom: 0;
 }
 
-/* 16:9: Text links, Video rechts (größer) */
-.project-landscape {
-    grid-template-columns: 1fr 2fr;   /* Text 1/3, Video 2/3 */
-}
+/* 16:9: Text 1/3, Video 2/3 */
+.project-landscape { grid-template-columns: 1fr 2fr; }
 
-/* 9:16: Text links, Video rechts (schmal) */
+/* 9:16: Text nimmt mehr Platz, Video ist schlank */
 .project-portrait {
-    grid-template-columns: 1fr 0.7fr; /* Text nimmt mehr Platz, Video ist schlank */
+    grid-template-columns: 1fr 0.7fr;
     align-items: center;
 }
 
-/* Text-Seite */
-.project-info {
-    padding-top: 8px;
-}
+.project-info { padding-top: 8px; }
 
 .project-title {
     font-family: var(--font-display);
@@ -419,7 +533,7 @@ body {
     max-width: 38ch;
 }
 
-/* Video-Seite: der Rahmen */
+/* Video-Rahmen */
 .video-frame {
     position: relative;
     background: #1a1a1a;
@@ -429,34 +543,23 @@ body {
     width: 100%;
 }
 
-/* Erlaube Iframes in deinem Container */
 .video-frame iframe {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
     border: none;
     z-index: 10;
 }
 
-.video-frame iframe ~ video {
-    display: none;
-}
+.video-frame iframe ~ video { display: none; }
 
+.ratio-16-9 { aspect-ratio: 16 / 9; }
 
-/* 16:9 Seitenverhältnis */
-.ratio-16-9 {
-    aspect-ratio: 16 / 9;
-}
-
-/* 9:16 Seitenverhältnis */
 .ratio-9-16 {
     aspect-ratio: 9 / 16;
-    max-width: 340px;   /* Nicht zu breit auf großen Bildschirmen */
+    max-width: 340px;
 }
 
-/* Video füllt Rahmen */
 .video-frame video {
     position: absolute;
     top: 0; left: 0;
@@ -465,7 +568,7 @@ body {
     display: block;
 }
 
-/* Platzhalter-Overlay (erscheint wenn keine Video-Datei vorhanden) */
+/* Platzhalter-Overlay */
 .video-placeholder-overlay {
     position: absolute;
     inset: 0;
@@ -476,10 +579,7 @@ body {
     pointer-events: none;
 }
 
-/* Wenn ein echtes Video geladen ist, Overlay ausblenden */
-.video-frame video:not([src=""]) ~ .video-placeholder-overlay {
-    display: none;
-}
+.video-frame video:not([src=""]) ~ .video-placeholder-overlay { display: none; }
 
 .placeholder-label {
     font-family: var(--font-display);
@@ -489,12 +589,16 @@ body {
     user-select: none;
 }
 
+/* Hover */
+.project-card:hover .video-frame {
+    box-shadow: 0 12px 50px rgba(0,0,0,0.15);
+    transition: box-shadow 0.3s ease;
+}
+
 /* Responsive: unter 900px untereinander */
 @media (max-width: 900px) {
     .project-landscape,
-    .project-portrait {
-        grid-template-columns: 1fr;
-    }
+    .project-portrait { grid-template-columns: 1fr; }
     .ratio-9-16 {
         max-width: 260px;
         margin: 0 auto;
@@ -503,7 +607,7 @@ body {
 
 
 /* ----------------------------------------------------------------
-   9. CV: LAYOUT & EINTRÄGE
+   10. CV: LAYOUT & EINTRÄGE
    ---------------------------------------------------------------- */
 .cv-layout {
     display: flex;
@@ -511,7 +615,6 @@ body {
     gap: 56px;
 }
 
-/* Kategorie-Block */
 .cv-block {
     background: var(--surface);
     border-radius: var(--radius-lg);
@@ -519,7 +622,6 @@ body {
     box-shadow: var(--shadow-soft);
 }
 
-/* Kategorie-Titel (Berufserfahrung / Ausbildung / Sonstiges) */
 .cv-category-title {
     font-family: var(--font-display);
     font-size: 1.9rem;
@@ -531,7 +633,6 @@ body {
     border-bottom: 1px solid var(--border);
 }
 
-/* Einzelner Eintrag */
 .cv-entry {
     padding: 20px 0;
     border-bottom: 1px solid var(--border);
@@ -542,7 +643,6 @@ body {
     padding-bottom: 0;
 }
 
-/* Zeile: Titel + Zeitraum */
 .cv-entry-header {
     display: flex;
     align-items: baseline;
@@ -570,7 +670,6 @@ body {
     text-transform: uppercase;
 }
 
-/* Organisation / Arbeitgeber */
 .cv-entry-org {
     font-size: 0.83rem;
     font-style: italic;
@@ -579,7 +678,6 @@ body {
     line-height: 1.5;
 }
 
-/* Beschreibungstext */
 .cv-entry-desc {
     font-size: 0.87rem;
     color: var(--text);
@@ -589,9 +687,7 @@ body {
 }
 
 @media (max-width: 640px) {
-    .cv-block {
-        padding: 28px 24px;
-    }
+    .cv-block { padding: 28px 24px; }
     .cv-entry-header {
         flex-direction: column;
         gap: 2px;
@@ -600,67 +696,69 @@ body {
 
 
 /* ----------------------------------------------------------------
-   10. SKILLS: TABELLE
+   11. SKILLS: KARTEN-GRID MIT BALKEN
+   ----------------------------------------------------------------
+   Ersetzt die nüchterne Tabelle durch ein zweispaltiges Karten-Grid.
+   Jede Karte zeigt: Skill-Name | Niveau-Badge + animierter Balken.
    ---------------------------------------------------------------- */
-.skills-table-wrapper {
+
+/* Zweispaltiges Grid auf Desktop, einspaltiger auf Mobile */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    max-width: 900px;
+}
+
+@media (max-width: 640px) {
+    .skills-grid { grid-template-columns: 1fr; }
+}
+
+/* Einzelne Skill-Karte */
+.skill-card {
     background: var(--surface);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-md);
+    padding: 20px 24px;
     box-shadow: var(--shadow-soft);
-    overflow: hidden;
-    max-width: 720px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    transition: box-shadow 0.25s ease, transform 0.25s ease;
 }
 
-.skills-table {
-    width: 100%;
-    border-collapse: collapse;
+.skill-card:hover {
+    box-shadow: var(--shadow-card);
+    transform: translateY(-2px);
+}
+
+/* Kopfzeile der Karte: Name links, Badge rechts */
+.skill-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;       /* Badge bricht sauber um, wenn kein Platz */
+}
+
+.skill-name {
     font-family: var(--font-body);
-}
-
-/* Kopfzeile */
-.skills-table thead tr {
-    background: var(--accent);
-}
-
-.skills-table th {
-    padding: 16px 32px;
-    text-align: left;
-    font-size: 0.72rem;
+    font-size: 0.93rem;
     font-weight: 500;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.7);
+    color: var(--accent);
+    line-height: 1.3;
 }
 
-/* Datenzeilen */
-.skills-table tbody tr {
-    border-bottom: 1px solid var(--border);
-    transition: background 0.18s ease;
-}
-
-.skills-table tbody tr:last-child {
-    border-bottom: none;
-}
-
-.skills-table tbody tr:hover {
-    background: rgba(0,0,0,0.03);
-}
-
-.skills-table td {
-    padding: 15px 32px;
-    font-size: 0.9rem;
-    color: var(--text);
-    font-weight: 400;
-}
-
-/* Niveau-Badges */
+/* Niveau-Badges (identisch mit alten Klassen) */
 .niveau-badge {
     display: inline-block;
-    padding: 4px 14px;
+    padding: 3px 12px;
     border-radius: 20px;
-    font-size: 0.75rem;
+    font-size: 0.70rem;
     font-weight: 500;
     letter-spacing: 0.05em;
     text-transform: uppercase;
+    white-space: nowrap;   /* Verhindert Umbruch im Badge selbst */
+    flex-shrink: 0;
 }
 
 .niveau-experte {
@@ -681,19 +779,40 @@ body {
     border: 1px solid rgba(136, 128, 120, 0.2);
 }
 
-@media (max-width: 640px) {
-    .skills-table th,
-    .skills-table td {
-        padding: 12px 20px;
-    }
+/* Fortschrittsbalken-Spur */
+.skill-bar-track {
+    height: 4px;
+    background: var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+/* Gefüllter Balken — Breite wird per JS aus data-level gesetzt */
+.skill-bar-fill {
+    height: 100%;
+    width: 0;                           /* Startet bei 0 für die Animation */
+    border-radius: 4px;
+    background: linear-gradient(90deg, var(--muted), var(--highlight));
+    transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Farbvarianten je nach Niveau-Klasse der Karte */
+.skill-card:has(.niveau-experte) .skill-bar-fill {
+    background: linear-gradient(90deg, #888078, var(--accent));
+}
+
+.skill-card:has(.niveau-fortgeschritten) .skill-bar-fill {
+    background: linear-gradient(90deg, #c9a85c, var(--highlight));
+}
+
+.skill-card:has(.niveau-grundkenntnisse) .skill-bar-fill {
+    background: linear-gradient(90deg, #b0a99f, var(--muted));
 }
 
 
 /* ----------------------------------------------------------------
-   11. ÜBERGÄNGE & ANIMATIONEN
+   12. ÜBERGÄNGE & ANIMATIONEN
    ---------------------------------------------------------------- */
-
-/* Sanfter Einblend-Effekt beim Sektions-Wechsel */
 @keyframes fadeSlideIn {
     from { opacity: 0; transform: translateY(16px); }
     to   { opacity: 1; transform: translateY(0); }
@@ -703,23 +822,58 @@ body {
     animation: fadeSlideIn 0.45s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
-/* Karten-Hover-Effekt */
-.project-card:hover .video-frame {
-    box-shadow: 0 12px 50px rgba(0,0,0,0.15);
-    transition: box-shadow 0.3s ease;
+/* Skill-Karten gestaffelt einblenden */
+.skill-card {
+    animation: fadeSlideIn 0.4s ease backwards;
 }
 
-/* Skills-Zeilen leicht verzögert einblenden */
-.skills-table tbody tr {
-    animation: fadeSlideIn 0.3s ease backwards;
+.skill-card:nth-child(1)  { animation-delay: 0.05s; }
+.skill-card:nth-child(2)  { animation-delay: 0.10s; }
+.skill-card:nth-child(3)  { animation-delay: 0.15s; }
+.skill-card:nth-child(4)  { animation-delay: 0.20s; }
+.skill-card:nth-child(5)  { animation-delay: 0.25s; }
+.skill-card:nth-child(6)  { animation-delay: 0.30s; }
+.skill-card:nth-child(7)  { animation-delay: 0.35s; }
+.skill-card:nth-child(8)  { animation-delay: 0.40s; }
+.skill-card:nth-child(9)  { animation-delay: 0.45s; }
+.skill-card:nth-child(10) { animation-delay: 0.50s; }
+
+
+/* ----------------------------------------------------------------
+   13. FOOTER
+   ---------------------------------------------------------------- */
+.site-footer {
+    padding: 40px 32px;
+    background: #c9c2b9;
+    border-top: 1px solid var(--border);
+    text-align: center;
 }
-.skills-table tbody tr:nth-child(1)  { animation-delay: 0.05s; }
-.skills-table tbody tr:nth-child(2)  { animation-delay: 0.10s; }
-.skills-table tbody tr:nth-child(3)  { animation-delay: 0.15s; }
-.skills-table tbody tr:nth-child(4)  { animation-delay: 0.20s; }
-.skills-table tbody tr:nth-child(5)  { animation-delay: 0.25s; }
-.skills-table tbody tr:nth-child(6)  { animation-delay: 0.30s; }
-.skills-table tbody tr:nth-child(7)  { animation-delay: 0.35s; }
-.skills-table tbody tr:nth-child(8)  { animation-delay: 0.40s; }
-.skills-table tbody tr:nth-child(9)  { animation-delay: 0.45s; }
-.skills-table tbody tr:nth-child(10) { animation-delay: 0.50s; }
+
+.footer-content {
+    max-width: 1080px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75rem;
+    color: var(--muted);
+}
+
+.footer-nav a {
+    color: var(--muted);
+    text-decoration: none;
+    margin-left: 20px;
+    transition: color 0.3s ease;
+}
+
+.footer-nav a:hover { color: var(--accent); }
+
+@media (max-width: 640px) {
+    .footer-content {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .footer-nav a {
+        margin: 0 10px;
+    }
+}
