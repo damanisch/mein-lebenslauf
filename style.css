@@ -59,10 +59,6 @@ body {
     overflow-x: hidden;
 }
 
-/* 1. Basis-Hintergrund (bleibt für Header und Start) */
-body {
-    background: var(--bg); /* Das ist dein bisheriges #d3ccc3 */
-}
 
 /* 2. Main-Content (der scrollbare Bereich wird heller) */
 .main-content {
@@ -350,17 +346,14 @@ body {
    7. SEKTIONS-WECHSEL (Portfolio / CV / Skills)
    ---------------------------------------------------------------- */
 .section-panel {
-    display: none;
-    opacity: 0;
-    transform: translateY(12px);
-    transition: opacity 0.4s ease, transform 0.4s ease;
-}
-
-.section-panel.active {
     display: block;
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(12px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    margin-top: 40px;
 }
+
+
 
 /* Gemeinsamer innerer Bereich */
 .section-inner {
@@ -435,6 +428,22 @@ body {
     box-shadow: var(--shadow-card);
     width: 100%;
 }
+
+/* Erlaube Iframes in deinem Container */
+.video-frame iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    z-index: 10;
+}
+
+.video-frame iframe ~ video {
+    display: none;
+}
+
 
 /* 16:9 Seitenverhältnis */
 .ratio-16-9 {

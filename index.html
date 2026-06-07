@@ -52,9 +52,10 @@
     <div class="video-part" id="videoPart">
         <div class="video-wrapper-16-9 video-container">
             <video id="myVideo" autoplay muted playsinline poster="vortest.png" class="local-video">
-                <source src="test2.mp4" type="video/mp4">
-            </video>
-            <button id="muteToggle" class="video-btn">Ton einschalten</button>
+    <source src="test2_web.mp4" type="video/mp4">
+    <source src="test2.webm" type="video/webm">
+    Dein Browser unterstützt keine Videos.
+</video>
         </div>
     </div>
 
@@ -73,12 +74,36 @@
          Zwei Vorlagen als Platzhalter: 16:9 und 9:16.
          Einfach duplizieren für weitere Projekte.
          ---------------------------------------------------------- -->
-    <section class="section-panel active" id="section-portfolio">
+    <section class="section-panel" id="section-portfolio">
         <div class="section-inner">
             <h1 class="section-main-title">Portfolio</h1>
 
 
             <!-- *** VORLAGE 1: 16:9 (Querformat) ***
+                 Dupliziere diesen Block für weitere 16:9-Projekte. -->
+            <article class="project-card project-landscape">
+                <div class="project-info">
+                    <h2 class="project-title">Video 16:9</h2>
+                    <p class="project-desc">
+                        Hier steht die Projektbeschreibung. Erkläre kurz, worum es geht, 
+                        welche Rolle du hattest und was das Ergebnis war. 
+                        Dieser Text ist ein Platzhalter — ersetze ihn durch deine eigenen Inhalte.
+                    </p>
+                </div>
+                <div class="project-media">
+                    <div class="video-frame ratio-16-9">
+                        <!-- Ersetze "video-platzhalter.mp4" mit deiner Videodatei -->
+                        <video controls playsinline poster="">
+                            <source src="video-platzhalter.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-placeholder-overlay">
+                            <span class="placeholder-label">Video 16:9</span>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+                    <!-- *** VORLAGE 1: 16:9 (Querformat) ***
                  Dupliziere diesen Block für weitere 16:9-Projekte. -->
             <article class="project-card project-landscape">
                 <div class="project-info">
@@ -102,8 +127,102 @@
                 </div>
             </article>
 
+        <!-- *** VORLAGE 1: 16:9 (Querformat) ***
+                 Dupliziere diesen Block für weitere 16:9-Projekte. -->
+            <article class="project-card project-landscape">
+                <div class="project-info">
+                    <h2 class="project-title">Projekttitel 16:9</h2>
+                    <p class="project-desc">
+                        Hier steht die Projektbeschreibung. Erkläre kurz, worum es geht, 
+                        welche Rolle du hattest und was das Ergebnis war. 
+                        Dieser Text ist ein Platzhalter — ersetze ihn durch deine eigenen Inhalte.
+                    </p>
+                </div>
+                <div class="project-media">
+                    <div class="video-frame ratio-16-9">
+                        <!-- Ersetze "video-platzhalter.mp4" mit deiner Videodatei -->
+                        <video controls playsinline poster="">
+                            <source src="video-platzhalter.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-placeholder-overlay">
+                            <span class="placeholder-label">Video 16:9</span>
+                        </div>
+                    </div>
+                </div>
+            </article>
 
-            <!-- *** VORLAGE 2: 9:16 (Hochformat / Vertikal) ***
+         <article class="project-card project-portrait">
+    <div class="project-info">
+        <h2 class="project-title">Ricola</h2>
+        <p class="project-desc">
+            Hier steht die Projektbeschreibung für das Ricola-Video. 
+            Es ist ein vertikales Format, perfekt optimiert für mobile Endgeräte.
+        </p>
+    </div>
+    <div class="project-media">
+        <div class="video-frame ratio-9-16">
+            <iframe 
+                src="https://www.youtube-nocookie.com/embed/hUsrRU0KSS8" 
+                title="Ricola Video" 
+                frameborder="0" 
+                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen>
+            </iframe>
+        </div>
+    </div>
+</article>
+
+
+
+ <!-- *** VORLAGE 2: 9:16 (Hochformat / Vertikal) ***
+                 Dupliziere diesen Block für weitere 9:16-Projekte. -->
+            <article class="project-card project-portrait">
+                <div class="project-info">
+                    <h2 class="project-title">Rivella</h2>
+                    <p class="project-desc">
+                        Hier steht die Projektbeschreibung für ein vertikales Video-Format.
+                        Ideal für Social-Media-Content, Reels oder TikTok-Produktionen.
+                        Dieser Text ist ein Platzhalter — ersetze ihn durch deine eigenen Inhalte.
+                    </p>
+                </div>
+                <div class="project-media">
+                    <div class="video-frame ratio-9-16">
+                        <!-- Ersetze "video-platzhalter-vertikal.mp4" mit deiner Videodatei -->
+                        <video controls playsinline poster="">
+                            <source src="video-platzhalter-vertikal.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-placeholder-overlay">
+                            <span class="placeholder-label">Video 9:16</span>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+ <!-- *** VORLAGE 2: 9:16 (Hochformat / Vertikal) ***
+                 Dupliziere diesen Block für weitere 9:16-Projekte. -->
+            <article class="project-card project-portrait">
+                <div class="project-info">
+                    <h2 class="project-title">Roth Gerüste</h2>
+                    <p class="project-desc">
+                        Hier steht die Projektbeschreibung für ein vertikales Video-Format.
+                        Ideal für Social-Media-Content, Reels oder TikTok-Produktionen.
+                        Dieser Text ist ein Platzhalter — ersetze ihn durch deine eigenen Inhalte.
+                    </p>
+                </div>
+                <div class="project-media">
+                    <div class="video-frame ratio-9-16">
+                        <!-- Ersetze "video-platzhalter-vertikal.mp4" mit deiner Videodatei -->
+                        <video controls playsinline poster="">
+                            <source src="video-platzhalter-vertikal.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-placeholder-overlay">
+                            <span class="placeholder-label">Video 9:16</span>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+ <!-- *** VORLAGE 2: 9:16 (Hochformat / Vertikal) ***
                  Dupliziere diesen Block für weitere 9:16-Projekte. -->
             <article class="project-card project-portrait">
                 <div class="project-info">
@@ -126,6 +245,7 @@
                     </div>
                 </div>
             </article>
+
 
         </div>
     </section><!-- /section-portfolio -->
