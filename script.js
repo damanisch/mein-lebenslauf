@@ -54,8 +54,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     sections.forEach(section => observer.observe(section));
 
-    // --- 5. RESET ---
-    document.getElementById('profilePic')?.addEventListener('click', () => {
-        window.location.reload(); 
+   const profPic = document.getElementById('profilePic');
+if (profPic) {
+    profPic.addEventListener('click', () => {
+        window.location.reload();
     });
+}
+
 });
