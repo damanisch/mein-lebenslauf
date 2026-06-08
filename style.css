@@ -401,15 +401,16 @@ body {
     right: -260px;         /* Versteckt rechts außen */
     width: 240px;
     height: 100%;
-    background: rgba(242, 239, 233, 0.88);   /* ← vorher: var(--surface); jetzt leicht transparent */
-    backdrop-filter: blur(12px);              /* ← Glassmorphism-Weichzeichner */
-    -webkit-backdrop-filter: blur(12px);
+    background: rgba(242, 239, 233, 0.65);   /* ← vorher: var(--surface); jetzt leicht transparent */
+    backdrop-filter: blur(20px);              /* ← Glassmorphism-Weichzeichner */
+    -webkit-backdrop-filter: blur(20px);
     z-index: 300;
     display: flex;
     flex-direction: column;
     padding: 80px 28px 40px;
     gap: 8px;
-    box-shadow: -4px 0 24px rgba(0,0,0,0.12);
+    border-left: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: -4px 0 30px rgba(0,0,0,0.08);
     transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
