@@ -401,7 +401,7 @@ body {
     right: -260px;         /* Versteckt rechts außen */
     width: 240px;
     height: 100%;
-    background: rgba(242, 239, 233, 0.65);   /* ← vorher: var(--surface); jetzt leicht transparent */
+    background: rgba(242, 239, 233, 0.30);   /* ← vorher: var(--surface); jetzt leicht transparent */
     backdrop-filter: blur(20px);              /* ← Glassmorphism-Weichzeichner */
     -webkit-backdrop-filter: blur(20px);
     z-index: 300;
