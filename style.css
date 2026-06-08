@@ -189,7 +189,7 @@ body {
 .stage.header-mode .email-link {
     font-size: 0.7rem;
     opacity: 0.8;
-    margin-top: 1px;
+    margin-top: -3.9px;
 }
 
 
@@ -363,6 +363,15 @@ body {
         position: absolute;
         right: 16px;
     }
+/* ÄNDERUNG (Mobile Header):
+       Profilbild, Name, Beruf und Mail leicht nach links versetzt.
+       Vorher: kein spezifischer left-Abstand (zentriert durch flex).
+       Jetzt: padding-left auf profile-part, damit der Inhalt vom linken Rand
+       einen angenehmen Mindestabstand hat. */
+    .stage.header-mode .profile-part {
+        padding-left: 4px;   /* ← leicht nach links, weg vom zu engen Rand */
+    }
+
 }
 
 /* Aktiv-Zustand: X-Form */
@@ -392,7 +401,9 @@ body {
     right: -260px;         /* Versteckt rechts außen */
     width: 240px;
     height: 100%;
-    background: var(--surface);
+    background: rgba(242, 239, 233, 0.88);   /* ← vorher: var(--surface); jetzt leicht transparent */
+    backdrop-filter: blur(12px);              /* ← Glassmorphism-Weichzeichner */
+    -webkit-backdrop-filter: blur(12px);
     z-index: 300;
     display: flex;
     flex-direction: column;
@@ -617,6 +628,10 @@ body {
         max-width: 260px;
         margin: 0 auto;
     }
+    .project-card {
+        margin-bottom: 36px;   /* ← kompakter auf kleinen Bildschirmen */
+        padding-bottom: 36px;
+    }
 }
 
 
@@ -720,7 +735,7 @@ body {
     display: flex;
     align-items: baseline;
     gap: 20px;
-    margin-bottom: 10px;
+    margin-bottom: -12px;
     padding-bottom: 12px;
     border-bottom: 1px solid var(--border);
 }
@@ -732,13 +747,18 @@ body {
     font-style: italic;
 }
 
+@media (max-width: 640px) {
+    .skills-title-block {
+        flex-direction: column;
+    }
+}
 
 /* Zweispaltiges Grid auf Desktop, einspaltiger auf Mobile */
 .skills-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 16px;
-    max-width: 900px;
+    max-width: 1016px;
 }
 
 @media (max-width: 640px) {
@@ -769,6 +789,14 @@ body {
     justify-content: space-between;
     gap: 12px;
     flex-wrap: wrap;       /* Badge bricht sauber um, wenn kein Platz */
+}
+
+@media (max-width: 640px) {
+    .skill-card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
 }
 
 .skill-name {
