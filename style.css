@@ -245,30 +245,31 @@ body {
     pointer-events: none;
 }
 
-/* Mobile: Video füllt den ganzen Bildschirm */
 @media (max-width: 640px) {
     .video-part {
         align-items: stretch;
         justify-content: stretch;
     }
 
-    /* Wir nutzen jetzt deine 9-16 Klasse für das Mobile-Layout */
     .video-wrapper-9-16 {
         width: 100vw;
         height: 100vh;
-        aspect-ratio: unset;          /* Verhindert Ränder, erlaubt Vollbild */
-        mask-image: none;             /* Keine Vignette, damit es maximal groß wirkt */
-        -webkit-mask-image: none;
+        aspect-ratio: unset;
+        mask-image: none;
+        
+        /* HIER IST DEIN ZOOM-REGLER FÜR SMARTPHONES */
+        /* 1.0 = Originalgröße / weit weg */
+        /* 1.1 = leicht reingezoomt */
+        /* 0.9 = leicht rausgezoomt (vielleicht das, was du suchst?) */
+        transform: scale(0.9); 
     }
 
     .local-video {
         width: 100%;
         height: 100%;
-        object-fit: cover;            /* Schneidet das Video passend für den Screen */
-        
-        /* Hier kannst du den vertikalen Ausschnitt für Mobile anpassen */
-        /* translateY schiebt das Video nach oben, damit man unten mehr sieht */
-        transform: translateY(-5%);   
+        object-fit: cover;
+        /* Falls du auf dem Handy die Verschiebung nach oben NICHT willst: */
+        transform: translateY(0%); 
     }
 }
 
