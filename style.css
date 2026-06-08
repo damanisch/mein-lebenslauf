@@ -261,7 +261,7 @@ body {
         /* 1.0 = Originalgröße / weit weg */
         /* 1.1 = leicht reingezoomt */
         /* 0.9 = leicht rausgezoomt (vielleicht das, was du suchst?) */
-        transform: scale(0.95); 
+        transform: scale(1.05); 
     }
 
     .local-video {
