@@ -261,7 +261,7 @@ body {
         /* 1.0 = Originalgröße / weit weg */
         /* 1.1 = leicht reingezoomt */
         /* 0.9 = leicht rausgezoomt (vielleicht das, was du suchst?) */
-        transform: scale(0.85); 
+        transform: scale(0.95); 
     }
 
     .local-video {
@@ -269,7 +269,7 @@ body {
         height: 100%;
         object-fit: cover;
         /* Falls du auf dem Handy die Verschiebung nach oben NICHT willst: */
-        transform: translateY(0%); 
+        transform: translateY(-5%); 
     }
 }
 
