@@ -61,7 +61,7 @@
         <div class="video-wrapper-9-16 video-container">
             <video id="myVideo" autoplay muted playsinline poster="vortest.png" class="local-video">
                 <source src="robo2.mp4"  type="video/mp4">
-                <source src="test2.webm" type="video/webm">
+                <source src="robo2.webm" type="video/webm">
                 Dein Browser unterstützt keine Videos.
             </video>
         </div>
@@ -80,6 +80,19 @@
 
 
 <!-- ============================================================
+     INHALTSVERZEICHNIS (Table of Contents)
+     Sichtbar direkt über dem Hauptinhalt.
+     Beim Runterscrollen gleitet es in die Stage (Header-Modus).
+     Dieselben showSection()-Calls wie die Header-Navigation.
+     ============================================================ -->
+<nav class="toc-nav" id="tocNav">
+    <button class="toc-btn" data-section="portfolio" onclick="showSection('portfolio')">Portfolio</button>
+    <button class="toc-btn" data-section="cv"        onclick="showSection('cv')">CV</button>
+    <button class="toc-btn" data-section="skills"    onclick="showSection('skills')">Skills</button>
+</nav>
+
+
+<!-- ============================================================
      HAUPTINHALT
      Enthält alle drei Sektionen (Portfolio / CV / Skills).
      ============================================================ -->
@@ -88,21 +101,22 @@
 
    <!-- ----------------------------------------------------------
          SEKTION 1: PORTFOLIO
-         Zwei Vorlagen: 16:9 (Querformat) und 9:16 (Hochformat).
-         Einfach duplizieren für weitere Projekte.
+         Vier Karten in dieser Reihenfolge:
+         1. 16:9 — Text LINKS, Video RECHTS
+         2. 16:9 — Text RECHTS, Video LINKS  (reversed)
+         3. 9:16 — Text LINKS, Video RECHTS
+         4. 9:16 — Video LINKS, Text RECHTS  (portrait-reversed)
          ---------------------------------------------------------- -->
     <section class="section-panel" id="section-portfolio">
         <div class="section-inner">
             <h1 class="section-main-title">Portfolio</h1>
 
-            <!-- 16:9 Querformat -->
+            <!-- KARTE 1: 16:9 — Text LINKS, Video RECHTS (standard) -->
             <article class="project-card project-landscape">
                 <div class="project-info">
                     <h2 class="project-title">Hello Fresh</h2>
                     <p class="project-desc">
-                        Hier steht die Projektbeschreibung. Erkläre kurz, worum es geht,
-                        welche Rolle du hattest und was das Ergebnis war.
-                        Dieser Text ist ein Platzhalter — ersetze ihn durch deine eigenen Inhalte.
+                        Auf Basis der Zielgruppen- und Kampagnen-Vorgaben von HelloFresh entstanden Konzepte für hochwertige, performance-orientierte Social Media Videos. Ich war bei diesem fortlaufenden Projekt für die gesamte Preproduction verantwortlich und habe die regelmäßigen Drehtage geleitet. Die Produktionen fanden in wechselnden Locations statt – von gemütlichen Home-Settings bis hin zu modernen Designküchen. Das Ergebnis umfasst neben performanten Paid Ads auch organischen Content, darunter Kochformate mit einem Profikoch.
                     </p>
                 </div>
                 <div class="project-media">
@@ -121,16 +135,112 @@
                 </div>
             </article>
 
-            <!-- 9:16 Hochformat -->
+               <article class="project-card project-landscape">
+                <div class="project-info">
+                    <h2 class="project-title">Fachhochschule Nordwestschweiz</h2>
+                    <p class="project-desc">
+                        Eines von vielen erfolgreichen Projekten für die FHNW: Ein Video für die Website des Studiengangs Data Science, das den neuen AI-Bot für Studierende vorstellt. Ich habe dieses Projekt eigenständig initiiert und umgesetzt – angefangen bei der Projektidee und dem Pitch vor der FHNW über die Konzeption, das Texten und die gesamte Organisation bis hin zur Regie und Drehleitung bei der Produktion.
+                    </p>
+                </div>
+                <div class="project-media">
+                    <div class="video-frame ratio-16-9">
+                        <iframe 
+                            src="https://www.youtube-nocookie.com/embed/4Ih0R3a6CuE"
+                            title="Hello Fresh Video"
+                            frameborder="0"
+                            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                        </iframe>
+                        <div class="video-placeholder-overlay">
+                            <span class="placeholder-label">Video 16:9</span>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+ <article class="project-card project-landscape">
+                <div class="project-info">
+                    <h2 class="project-title">Roth Gerüste</h2>
+                    <p class="project-desc"> 
+                        Für Roth Gerüste betreuen wir nicht nur den erfolgreichen Aufbau des TikTok-Accounts im Bereich Lehrlings-Recruiting, sondern produzieren auch zielgerichteten Content für LinkedIn. In diesem Format präsentieren sich die verschiedenen Niederlassungsleiter des Unternehmens. Ich war bei diesem Projekt für das Konzept, die Texte sowie für die Regie und die reibungslose Leitung des Drehtags verantwortlich.
+                    </p>
+                </div>
+                <div class="project-media">
+                    <div class="video-frame ratio-16-9">
+                        <iframe
+                            src="https://www.youtube-nocookie.com/embed/ho1iYsJ8nnU"
+                            title="Hello Fresh Video"
+                            frameborder="0"
+                            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                        </iframe>
+                        <div class="video-placeholder-overlay">
+                            <span class="placeholder-label">Video 16:9</span>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+
+             <article class="project-card project-landscape">
+                <div class="project-info">
+                    <h2 class="project-title">Livom</h2>
+                    <p class="project-desc">
+                       Für das Schweizer Möbel-Startup Livom haben wir eine performance-orientierte Paid-Ads-Kampagne mit modularen Videos umgesetzt. Die Besonderheit: Der gesamte Studiodreh war dreisprachig (Schweizerdeutsch, Hochdeutsch und Französisch) aufgebaut, um flexibel verschiedene Hooks und Ad-Bodies miteinander kombinieren zu können. Dieses Video zeigt die französische Version.
+
+                       Meine Aufgabe lag in der kompletten Konzeption, Organisation und der Erstellung einer extrem detaillierten Shotlist. Nur so war es möglich, das extrem straffe und logistisch aufwändige Pensum für alle drei Sprachvarianten an einem einzigen Produktionstag erfolgreich durchzuziehen.
+                    </p>
+                </div>
+                <div class="project-media">
+                    <div class="video-frame ratio-16-9">
+                        <iframe 
+                            src="https://www.youtube-nocookie.com/embed/aSzej93IyBQ"
+                            title="Hello Fresh Video"
+                            frameborder="0"
+                            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                        </iframe>
+                        <div class="video-placeholder-overlay">
+                            <span class="placeholder-label">Video 16:9</span>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            
+            <article class="project-card project-landscape">
+                <div class="project-info">
+                    <h2 class="project-title">Stadler Form AG</h2>
+                    <p class="project-desc">
+                       Konzeption und Produktion von modularen Paid Ads für den Raumdiffuser „Sophie“ von Stadler Form. Die Videos wurden so aufgebaut, dass sich die einzelnen Sequenzen für verschiedene Ad-Varianten immer wieder neu kombinieren lassen. Von der ersten Konzeption über das Skripting bis zur präzisen Planung der modularen Teile und der Erstellung der Shotlist lag die Vorbereitung komplett in meiner Hand. Beim Shooting selbst war ich als Runner im Einsatz, um den Dreh aktiv zu unterstützen.
+                    </p>
+                </div>
+                <div class="project-media">
+                    <div class="video-frame ratio-16-9">
+                        <iframe 
+                            src="https://www.youtube-nocookie.com/embed/UXLArMxONc0"
+                            title="Hello Fresh Video"
+                            frameborder="0"
+                            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                        </iframe>
+                        <div class="video-placeholder-overlay">
+                            <span class="placeholder-label">Video 16:9</span>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+
+            <!-- KARTE 3: 9:16 — Text LINKS, Video RECHTS (standard portrait) -->
             <article class="project-card project-portrait">
                 <div class="project-info">
                     <h2 class="project-title">Ricola</h2>
                     <p class="project-desc">
-                        Hier steht die Projektbeschreibung für das Ricola-Video.
-                        Es ist ein vertikales Format, perfekt optimiert für mobile Endgeräte.
+                        Content-Production für Ricola auf Instagram: Neben klassischen Gewinnspielen stand hier eine von mir konzipierte und gepitchte Miniserie im Fokus. Ich habe das Projekt von der ersten Idee über das Skripting bis zur finalen Umsetzung als Regisseur und Drehleiter im Alleingang gestemmt. Trotz Extrembedingungen – über 30 Grad Hitze ohne Schatten – konnten wir das Pensum von 13 Kräuter-Videos und einem Gewinnspiel-Clip an nur einem einzigen Drehtag erfolgreich im Kasten unterbringen.
                     </p>
                 </div>
-                <div class="project-media">
+                <div class="project-media project-media-portrait-right">
                     <div class="video-frame ratio-9-16">
                         <iframe
                             src="https://www.youtube-nocookie.com/embed/hUsrRU0KSS8"
@@ -142,6 +252,52 @@
                     </div>
                 </div>
             </article>
+
+             <article class="project-card project-portrait">
+                <div class="project-info">
+                    <h2 class="project-title">Rivella</h2>
+                    <p class="project-desc"> 
+                        Wie bringt man Kunden am Point of Sale dazu, zur Rivella-Flasche zu greifen? Mit einem interaktiven Gewinnspiel bei Coop und Migros, bei dem man täglich seinen Einkauf zurückgewinnen konnte.
+
+                        Als Erklärstück für die Kampagne haben wir ein kreatives Musikvideo umgesetzt – inklusive KI-generiertem Soundtrack und Drehs in den Supermärkten.
+
+                        Mein Part: Mitkonzeption der Kampagne, Video-Konzept, Skripting sowie Regie und Leitung des Drehtags.
+                    </p>
+                </div>
+                <div class="project-media project-media-portrait-right">
+                    <div class="video-frame ratio-9-16">
+                        <iframe
+                            src="https://www.youtube-nocookie.com/embed/uh-kgQl-yAo"
+                            title="Ricola Video"
+                            frameborder="0"
+                            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
+            </article>
+
+            
+             <article class="project-card project-portrait">
+                <div class="project-info">
+                    <h2 class="project-title">Holcim</h2>
+                    <p class="project-desc"> 
+                        Ein kreatives Recruiting-Rapvideo direkt auf dem Holcim-Gelände, authentisch besetzt mit den eigenen Lernenden des Unternehmens. Das Projekt war logistisch eine echte Herausforderung: Neben dem Musikvideo wurden am selben Tag vier weitere Clips produziert. Von der ersten Konzeption und dem Skripting über die KI-Musikproduktion bis hin zur Regie und der Leitung des aufwändigen Drehtags habe ich das Projekt komplett eigenständig gesteuert.
+                    </p>
+                </div>
+                <div class="project-media project-media-portrait-right">
+                    <div class="video-frame ratio-9-16">
+                        <iframe
+                            src="https://www.youtube-nocookie.com/embed/Kd8ZXvTOIOI"
+                            title="Ricola Video"
+                            frameborder="0"
+                            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
+            </article>
+
 
         </div>
     </section><!-- /section-portfolio -->
@@ -280,10 +436,12 @@
          ---------------------------------------------------------- -->
     <section class="section-panel" id="section-skills">
         <div class="section-inner">
+
+            <!-- Skills-Titelblock: "Skills" oben, Untertitel darunter (stapelt vertikal) -->
             <div class="skills-title-block">
-    <h1 class="section-main-title">Skills</h1>
-    <p class="skills-subtitle">Kompetenzen & Erfahrungsstufen</p>
-</div>
+                <h1 class="section-main-title">Skills</h1>
+                <p class="skills-subtitle">Kompetenzen & Erfahrungsstufen</p>
+            </div>
 
             <div class="skills-grid">
 
