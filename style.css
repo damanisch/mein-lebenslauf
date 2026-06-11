@@ -186,10 +186,14 @@ body {
     letter-spacing: 0.1em;
 }
 
+/* ÄNDERUNG (Desktop Header):
+   Abstand zwischen Subtitle (Content Specialist) und E-Mail-Adresse kleiner.
+   Vorher: margin-top: 1px (implizit durch gap:0 auf profile-text).
+   Jetzt: explizit kein margin-top — die E-Mail rückt dichter an den Subtitle. */
 .stage.header-mode .email-link {
     font-size: 0.7rem;
     opacity: 0.8;
-    margin-top: -3.9px;
+    margin-top: 0;        /* ← vorher: 1px; jetzt direkt unter dem Subtitle */
 }
 
 
@@ -216,12 +220,7 @@ body {
     aspect-ratio: 9 / 16;
     overflow: hidden;
     background-color: var(--bg);
-    
-    /* Der Zoom-Faktor: 1.1 bedeutet "10% größer als original" */
-    /* Erhöhe diesen Wert (z.B. auf 1.2), wenn es noch näher sein soll */
-    /* Verringere ihn (z.B. auf 1.0), wenn es zu groß ist */
-    transform: scale(1.20); 
-    
+    transform: scale(1.20);
     mask-image: radial-gradient(ellipse at center, black 75%, transparent 95%);
     -webkit-mask-image: radial-gradient(ellipse at center, black 75%, transparent 95%);
 }
@@ -230,13 +229,7 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    
-    /* Wir verschieben das Video selbst innerhalb seiner Box */
-    /* translateY(-10%) schiebt es um 10% seiner eigenen Höhe nach oben */
-    transform: translateY(-1.5%); 
-    
-    /* Wir müssen sicherstellen, dass das Video nicht über den Container hinauswackelt */
-    /* und die Maske weiterhin korrekt funktioniert */
+    transform: translateY(-1.5%);
 }
 
 /* Header-Modus: Video unsichtbar */
@@ -256,20 +249,14 @@ body {
         height: 100vh;
         aspect-ratio: unset;
         mask-image: none;
-        
-        /* HIER IST DEIN ZOOM-REGLER FÜR SMARTPHONES */
-        /* 1.0 = Originalgröße / weit weg */
-        /* 1.1 = leicht reingezoomt */
-        /* 0.9 = leicht rausgezoomt (vielleicht das, was du suchst?) */
-        transform: scale(1.05); 
+        transform: scale(1.05);
     }
 
     .local-video {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        /* Falls du auf dem Handy die Verschiebung nach oben NICHT willst: */
-        transform: translateY(-5%); 
+        transform: translateY(-5%);
     }
 }
 
@@ -363,7 +350,8 @@ body {
         position: absolute;
         right: 16px;
     }
-/* ÄNDERUNG (Mobile Header):
+
+    /* ÄNDERUNG (Mobile Header):
        Profilbild, Name, Beruf und Mail leicht nach links versetzt.
        Vorher: kein spezifischer left-Abstand (zentriert durch flex).
        Jetzt: padding-left auf profile-part, damit der Inhalt vom linken Rand
@@ -371,7 +359,6 @@ body {
     .stage.header-mode .profile-part {
         padding-left: 4px;   /* ← leicht nach links, weg vom zu engen Rand */
     }
-
 }
 
 /* Aktiv-Zustand: X-Form */
@@ -394,23 +381,25 @@ body {
     opacity: 1;
 }
 
-/* Seitenleiste selbst */
+/* ÄNDERUNG (Mobile Seitenleiste):
+   Leicht transparenter Hintergrund für die Seitenleiste.
+   Vorher: background: var(--surface) → komplett opak (#f2efe9).
+   Jetzt:  rgba mit 88% Deckkraft + backdrop-filter für Glassmorphism-Effekt. */
 .mobile-menu {
     position: fixed;
     top: 0;
     right: -260px;         /* Versteckt rechts außen */
     width: 240px;
     height: 100%;
-    background: rgba(242, 239, 233, 0.30);   /* ← vorher: var(--surface); jetzt leicht transparent */
-    backdrop-filter: blur(5px);              /* ← Glassmorphism-Weichzeichner */
-    -webkit-backdrop-filter: blur(20px);
+    background: rgba(242, 239, 233, 0.88);   /* ← vorher: var(--surface); jetzt leicht transparent */
+    backdrop-filter: blur(12px);              /* ← Glassmorphism-Weichzeichner */
+    -webkit-backdrop-filter: blur(12px);
     z-index: 300;
     display: flex;
     flex-direction: column;
     padding: 80px 28px 40px;
     gap: 8px;
-    border-left: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: -4px 0 30px rgba(0,0,0,0.08);
+    box-shadow: -4px 0 24px rgba(0,0,0,0.12);
     transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -469,10 +458,10 @@ body {
 
 
 /* ----------------------------------------------------------------
-   7. HAUPTINHALT (main-content)
+   8. HAUPTINHALT (main-content)
    ---------------------------------------------------------------- */
 .main-content {
-    padding-top: calc(var(--header-h) - 80x);
+    padding-top: calc(var(--header-h) - 80px);
     min-height: 100vh;
     position: relative;
     z-index: 10;
@@ -484,8 +473,8 @@ body {
     font-size: 3.5rem;
     font-weight: 500;
     color: var(--accent);
-    margin-bottom: 100px;
-    padding-bottom: 12px;
+    margin-bottom: 64px;        /* ← Abstand zwischen Trennlinie und erster Karte */
+    padding-bottom: 28px;       /* ← Abstand zwischen Titeltext und Trennlinie */
     border-bottom: 1px solid var(--border);
     letter-spacing: -0.01em;
 }
@@ -510,19 +499,19 @@ body {
 
 @media (max-width: 640px) {
     .section-inner { padding: 0 16px 60px; }
-    .section-main-title { font-size: 2.4rem; }
 }
 
 
 /* ----------------------------------------------------------------
    9. PORTFOLIO: PROJEKTKARTEN (16:9 & 9:16)
    ---------------------------------------------------------------- */
+
 .project-card {
     display: grid;
     gap: 40px;
     align-items: start;
-    margin-bottom: 80px;
-    padding-bottom: 80px;
+    margin-bottom: 48px;
+    padding-bottom: 48px;
     border-bottom: 1px solid var(--border);
 }
 
@@ -531,14 +520,62 @@ body {
     margin-bottom: 0;
 }
 
-/* 16:9: Text 1/3, Video 2/3 */
-.project-landscape { grid-template-columns: 1fr 2fr; }
+/* ── 16:9 LANDSCAPE ────────────────────────────────────────────── */
 
-/* 9:16: Text nimmt mehr Platz, Video ist schlank */
+/* Standard: Text links (1fr) | Video rechts (2fr) */
+.project-landscape {
+    grid-template-columns: 1fr 2fr;
+}
+
+/* Reversed: Video links (2fr) | Text rechts (1fr).
+   DOM-Reihenfolge bleibt Text → Video; order tauscht die visuelle Position. */
+.project-landscape.project-landscape--reversed {
+    grid-template-columns: 2fr 1fr;
+}
+.project-landscape.project-landscape--reversed .project-info  { order: 2; }
+.project-landscape.project-landscape--reversed .project-media { order: 1; }
+
+
+/* ── 9:16 PORTRAIT ─────────────────────────────────────────────── */
+
+/* Standard: Text links (1fr) | Video rechts (0.7fr) */
 .project-portrait {
     grid-template-columns: 1fr 0.7fr;
     align-items: center;
 }
+
+/* Reversed: Video links (0.7fr) | Text rechts (1fr).
+   DOM-Reihenfolge bleibt Text → Video; order tauscht die visuelle Position. */
+.project-portrait.project-portrait--reversed {
+    grid-template-columns: 0.7fr 1fr;
+}
+.project-portrait.project-portrait--reversed .project-info  { order: 2; }
+.project-portrait.project-portrait--reversed .project-media { order: 1; }
+
+
+/* ── PORTRAIT MEDIA WRAPPER ────────────────────────────────────── */
+
+/* Standard (rechts): Video am rechten Rand der Spalte */
+.project-media--portrait-right {
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Reversed (links): Video am linken Rand der Spalte */
+.project-media--portrait-left {
+    display: flex;
+    justify-content: flex-start;
+}
+
+/* ratio-9-16 innerhalb der Portrait-Wrapper: volle Spaltenbreite, max 340px */
+.project-media--portrait-right .ratio-9-16,
+.project-media--portrait-left  .ratio-9-16 {
+    width: 100%;
+    max-width: 340px;
+}
+
+
+/* ── GEMEINSAME STYLES ─────────────────────────────────────────── */
 
 .project-info { padding-top: 8px; }
 
@@ -559,7 +596,14 @@ body {
     max-width: 38ch;
 }
 
-/* Video-Rahmen */
+/* Portrait-Karten: Textfeld füllt die Spalte vollständig aus.
+   max-width aufheben, damit kein künstlicher Rand entsteht. */
+.project-portrait .project-desc {
+    max-width: none;
+}
+
+/* ── VIDEO FRAMES ──────────────────────────────────────────────── */
+
 .video-frame {
     position: relative;
     background: #1a1a1a;
@@ -583,7 +627,7 @@ body {
 
 .ratio-9-16 {
     aspect-ratio: 9 / 16;
-    max-width: 340px;
+    max-width: 340px;   /* Fallback ohne portrait-media-Wrapper */
 }
 
 .video-frame video {
@@ -621,17 +665,53 @@ body {
     transition: box-shadow 0.3s ease;
 }
 
-/* Responsive: unter 900px untereinander */
+
+/* ── RESPONSIVE ────────────────────────────────────────────────── */
+
+/* Unter 900px: alle Karten einspaltiger Stack.
+   order-Reset stellt sicher, dass reversed-Karten auf Mobile
+   in der natürlichen DOM-Reihenfolge (Text oben, Video unten) erscheinen. */
 @media (max-width: 900px) {
+
     .project-landscape,
-    .project-portrait { grid-template-columns: 1fr; }
+    .project-landscape.project-landscape--reversed,
+    .project-portrait,
+    .project-portrait.project-portrait--reversed {
+        grid-template-columns: 1fr;
+    }
+
+    /* Reversed-Karten: order zurücksetzen → DOM-Reihenfolge (Text zuerst) */
+    .project-landscape.project-landscape--reversed .project-info,
+    .project-landscape.project-landscape--reversed .project-media,
+    .project-portrait.project-portrait--reversed .project-info,
+    .project-portrait.project-portrait--reversed .project-media {
+        order: unset;
+    }
+
+    .project-card {
+        margin-bottom: 36px;
+        padding-bottom: 36px;
+    }
+
+    /* Portrait-Videos auf Mobile: immer zentriert */
+    .project-media--portrait-right,
+    .project-media--portrait-left {
+        justify-content: center;
+    }
+
+    .project-media--portrait-right .ratio-9-16,
+    .project-media--portrait-left  .ratio-9-16,
     .ratio-9-16 {
         max-width: 260px;
         margin: 0 auto;
     }
-    .project-card {
-        margin-bottom: 36px;   /* ← kompakter auf kleinen Bildschirmen */
-        padding-bottom: 36px;
+}
+
+@media (max-width: 640px) {
+    .section-main-title {
+        font-size: 2.4rem;
+        margin-bottom: 40px;
+        padding-bottom: 20px;
     }
 }
 
@@ -729,37 +809,42 @@ body {
 /* ----------------------------------------------------------------
    11. SKILLS: KARTEN-GRID MIT BALKEN
    ----------------------------------------------------------------
-   Ersetzt die nüchterne Tabelle durch ein zweispaltiges Karten-Grid.
-   Jede Karte zeigt: Skill-Name | Niveau-Badge + animierter Balken.
+   Zweispaltiges Karten-Grid. Jede Karte: Skill-Name | Niveau-Badge + Balken.
    ---------------------------------------------------------------- */
+/* =================================================================
+   ANGEPASSTER SKILLS-BEREICH (Badge immer unter dem Skill-Namen)
+   ================================================================= */
+
+/* ÄNDERUNG (Desktop & Mobile Skills-Titelblock):
+   Vorher: skills-title-block war flex-direction: row (Titel + Untertitel nebeneinander).
+   Jetzt:  flex-direction: column — Untertitel erscheint unter "Skills", nicht daneben. */
 .skills-title-block {
     display: flex;
-    align-items: baseline;
-    gap: 20px;
-    margin-bottom: -12px;
+    flex-direction: column;      
+    align-items: flex-start;
+    gap: 4px;                    
+    margin-bottom: 32px;         
     padding-bottom: 12px;
     border-bottom: 1px solid var(--border);
 }
-.section-main-title { margin-bottom: 0; border-bottom: none; padding-bottom: 0; }
+
+/* section-main-title innerhalb Skills: kein eigener margin/border mehr */
+.section-main-title { margin-bottom: -20px; border-bottom: none; padding-bottom: 0; }
+
 .skills-subtitle {
+    margin-bottom: -20px;
     font-family: var(--font-display);
     font-size: 1.1rem;
     color: var(--muted);
     font-style: italic;
 }
 
-@media (max-width: 640px) {
-    .skills-title-block {
-        flex-direction: column;
-    }
-}
-
-/* Zweispaltiges Grid auf Desktop, einspaltiger auf Mobile */
+/* Grid-Layout für die Skill-Karten */
 .skills-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 16px;
-    max-width: 1016px;
+    max-width: 1016px;    
 }
 
 @media (max-width: 640px) {
@@ -774,7 +859,7 @@ body {
     box-shadow: var(--shadow-soft);
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 14px; /* Hält den Abstand zwischen Header, Badge und Balken gleichmässig */
     transition: box-shadow 0.25s ease, transform 0.25s ease;
 }
 
@@ -783,22 +868,18 @@ body {
     transform: translateY(-2px);
 }
 
-/* Kopfzeile der Karte: Name links, Badge rechts */
+/* NEU: Kopfzeile der Karte komplett auf Spalten-Layout umgestellt.
+   Das zwingt das Badge auf Desktop und Mobile IMMER unter den Namen. */
 .skill-card-header {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    flex-wrap: wrap;       /* Badge bricht sauber um, wenn kein Platz */
+    flex-direction: column;   /* ← ÄNDERUNG: Zwingt Elemente untereinander */
+    align-items: flex-start;  /* ← ÄNDERUNG: Richtet alles linksbündig aus */
+    justify-content: flex-start;
+    gap: 8px;                 /* ← Definiert den exakten Abstand zwischen Text und Badge */
 }
 
-@media (max-width: 640px) {
-    .skill-card-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 6px;
-    }
-}
+/* Der Media Query für max-width: 640px an dieser Stelle wurde gelöscht, 
+   da das Layout nun standardmässig überall sauber untereinander fliesst. */
 
 .skill-name {
     font-family: var(--font-body);
@@ -808,7 +889,7 @@ body {
     line-height: 1.3;
 }
 
-/* Niveau-Badges (identisch mit alten Klassen) */
+/* Niveau-Badges */
 .niveau-badge {
     display: inline-block;
     padding: 3px 12px;
@@ -817,10 +898,12 @@ body {
     font-weight: 500;
     letter-spacing: 0.05em;
     text-transform: uppercase;
-    white-space: nowrap;   /* Verhindert Umbruch im Badge selbst */
+    white-space: nowrap;
     flex-shrink: 0;
+    margin-bottom: 2px;       /* ← Kleiner Bonus-Abstand nach unten zum Balken hin */
 }
 
+/* Farbvarianten der Badges */
 .niveau-experte {
     background: rgba(44,44,44,0.12);
     color: #1a1a1a;
@@ -845,16 +928,16 @@ body {
     overflow: hidden;
 }
 
-/* Gefüllter Balken — Breite wird per JS aus data-level gesetzt */
+/* Gefüllter Balken */
 .skill-bar-fill {
     height: 100%;
-    width: 0;                           /* Startet bei 0 für die Animation */
+    width: 0;                                           
     border-radius: 4px;
     background: linear-gradient(90deg, var(--muted), var(--highlight));
     transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Farbvarianten je nach Niveau-Klasse der Karte */
+/* Farbvarianten je nach Niveau-Klasse */
 .skill-card:has(.niveau-experte) .skill-bar-fill {
     background: linear-gradient(90deg, #555, #1a1a1a);
 }
@@ -877,7 +960,6 @@ body {
     animation: fadeSlideIn 0.45s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
-/* Skill-Karten gestaffelt einblenden */
 .skill-card {
     animation: fadeSlideIn 0.4s ease backwards;
 }
@@ -892,7 +974,6 @@ body {
 .skill-card:nth-child(8)  { animation-delay: 0.40s; }
 .skill-card:nth-child(9)  { animation-delay: 0.45s; }
 .skill-card:nth-child(10) { animation-delay: 0.50s; }
-
 
 /* ----------------------------------------------------------------
    13. FOOTER
